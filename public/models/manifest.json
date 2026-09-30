@@ -1,16 +1,81 @@
 {
-  "version": 1,
-  "description": "Photo-inspired reconstruction with approximate dimensions. Fountain is an artistic addition.",
+  "version": 4,
+  "description": "Photo-inspired architecture with approximate dimensions; extended campus layout follows user directions. Fountain is an artistic addition.",
+  "layout": {
+    "frontAxis": "+Z",
+    "leftAxis": "-X",
+    "frontSequence": [
+      "Air_Mancur",
+      "Jalan_Depan",
+      "FKIP",
+      "Perpustakaan"
+    ],
+    "libraryNeighbors": [
+      "Perpustakaan",
+      "Masjid"
+    ],
+    "towerSideRow": [
+      "Menara_Iqro",
+      "Fakultas_Hukum",
+      "Pascasarjana"
+    ],
+    "entrances": {
+      "Fakultas_Hukum": {
+        "center": [
+          -76,
+          0,
+          -8
+        ],
+        "frontDepth": 12,
+        "direction": [
+          0.8574929257125442,
+          0,
+          0.5144957554275265
+        ],
+        "faces": "Air_Mancur"
+      },
+      "Pascasarjana": {
+        "center": [
+          -96.75132880224356,
+          0,
+          28.529198635354383
+        ],
+        "frontDepth": 11,
+        "direction": [
+          0.8574929257125442,
+          0,
+          0.5144957554275265
+        ]
+      }
+    },
+    "road": {
+      "centerZ": 45,
+      "width": 10
+    }
+  },
   "assets": [
     {
       "id": "Menara_Iqro",
       "label": "Menara Iqro",
       "file": "menara-iqro.glb",
+      "hash": "eceff07c93c9",
       "position": [
         -15,
         0,
         -2.9749999046325684
       ],
+      "bounds": {
+        "min": [
+          -26.5,
+          0,
+          -17.5
+        ],
+        "max": [
+          -3.5,
+          85.80000305175781,
+          11.550000190734863
+        ]
+      },
       "bytes": 390140,
       "meshes": 7,
       "triangles": 5536
@@ -19,50 +84,206 @@
       "id": "Sayap_Akademik",
       "label": "Sayap akademik",
       "file": "sayap-akademik.glb",
+      "hash": "2694e3f80acf",
       "position": [
         -15,
         0,
         -8.850000001490116
       ],
+      "bounds": {
+        "min": [
+          -52,
+          0,
+          -17.5
+        ],
+        "max": [
+          22,
+          34.43000030517578,
+          -0.20000000298023224
+        ]
+      },
       "bytes": 682508,
       "meshes": 4,
       "triangles": 11376
     },
     {
-      "id": "Masjid",
-      "label": "Masjid kampus",
-      "file": "masjid.glb",
+      "id": "Balai_Sidang",
+      "label": "Balai Sidang",
+      "file": "balai-sidang.glb",
+      "hash": "245d569eff20",
       "position": [
         43,
         0,
         -13
       ],
-      "bytes": 134284,
+      "bounds": {
+        "min": [
+          22,
+          0,
+          -32
+        ],
+        "max": [
+          64,
+          33.400001525878906,
+          6
+        ]
+      },
+      "bytes": 216824,
       "meshes": 7,
-      "triangles": 3740
+      "triangles": 4552
     },
     {
-      "id": "Balai_Sidang",
-      "label": "Balai sidang",
-      "file": "balai-sidang.glb",
+      "id": "FKIP",
+      "label": "FKIP",
+      "file": "fkip.glb",
+      "hash": "a123625cff0c",
       "position": [
-        41,
+        -21,
         0,
-        25
+        67
       ],
-      "bytes": 21604,
+      "bounds": {
+        "min": [
+          -38.5,
+          0,
+          53.5
+        ],
+        "max": [
+          -3.5,
+          18.700000762939453,
+          80.5
+        ]
+      },
+      "bytes": 40684,
       "meshes": 4,
-      "triangles": 236
+      "triangles": 424
+    },
+    {
+      "id": "Perpustakaan",
+      "label": "Perpustakaan",
+      "file": "perpustakaan.glb",
+      "hash": "45fa0b025473",
+      "position": [
+        -21,
+        0,
+        103.5999984741211
+      ],
+      "bounds": {
+        "min": [
+          -38,
+          0,
+          91
+        ],
+        "max": [
+          -4,
+          14.75,
+          116.19999694824219
+        ]
+      },
+      "bytes": 177792,
+      "meshes": 4,
+      "triangles": 2064
+    },
+    {
+      "id": "Fakultas_Hukum",
+      "label": "Fakultas Hukum",
+      "file": "fakultas-hukum.glb",
+      "hash": "dd59d122d3cb",
+      "position": [
+        -76,
+        0,
+        -8
+      ],
+      "bounds": {
+        "min": [
+          -96.75132751464844,
+          -1.9073486612342094e-7,
+          -29.78032112121582
+        ],
+        "max": [
+          -55.24867248535156,
+          18.149999618530273,
+          13.78032112121582
+        ]
+      },
+      "bytes": 193188,
+      "meshes": 4,
+      "triangles": 2324
+    },
+    {
+      "id": "Pascasarjana",
+      "label": "Pascasarjana",
+      "file": "pascasarjana.glb",
+      "hash": "874deb14abfb",
+      "position": [
+        -96.75132751464844,
+        0,
+        28.529197216033936
+      ],
+      "bounds": {
+        "min": [
+          -116.6451644897461,
+          -1.9073486612342094e-7,
+          7.263373374938965
+        ],
+        "max": [
+          -76.85749053955078,
+          18.149999618530273,
+          49.795021057128906
+        ]
+      },
+      "bytes": 220960,
+      "meshes": 4,
+      "triangles": 2596
+    },
+    {
+      "id": "Masjid",
+      "label": "Masjid kampus",
+      "file": "masjid.glb",
+      "hash": "329bd87a1801",
+      "position": [
+        -64.0999984741211,
+        0,
+        103
+      ],
+      "bounds": {
+        "min": [
+          -82.69999694824219,
+          0,
+          87.5
+        ],
+        "max": [
+          -45.5,
+          22.850000381469727,
+          118.5
+        ]
+      },
+      "bytes": 196420,
+      "meshes": 6,
+      "triangles": 3996
     },
     {
       "id": "Gerbang",
       "label": "Gerbang kampus",
       "file": "gerbang.glb",
+      "hash": "a932666ed106",
       "position": [
         -47,
         0,
         21
       ],
+      "bounds": {
+        "min": [
+          -53.5,
+          0,
+          14.5
+        ],
+        "max": [
+          -40.5,
+          15.600000381469727,
+          27.5
+        ]
+      },
       "bytes": 30656,
       "meshes": 3,
       "triangles": 484
@@ -71,24 +292,50 @@
       "id": "Lansekap",
       "label": "Lansekap kampus",
       "file": "lansekap.glb",
+      "hash": "b8245958c6c3",
       "position": [
-        4.25,
+        -54,
         0,
-        3
+        40
       ],
-      "bytes": 270676,
+      "bounds": {
+        "min": [
+          -177,
+          -2.6000001430511475,
+          -48
+        ],
+        "max": [
+          69,
+          10.149999618530273,
+          128
+        ]
+      },
+      "bytes": 385888,
       "meshes": 10,
-      "triangles": 5072
+      "triangles": 7276
     },
     {
       "id": "Air_Mancur",
       "label": "Air mancur",
       "file": "air-mancur.glb",
+      "hash": "34b955962b09",
       "position": [
         -21,
         0,
         25.000000953674316
       ],
+      "bounds": {
+        "min": [
+          -28.399999618530273,
+          0.699999988079071,
+          17.600000381469727
+        ],
+        "max": [
+          -13.600000381469727,
+          6.800451755523682,
+          32.400001525878906
+        ]
+      },
       "bytes": 136708,
       "meshes": 5,
       "triangles": 3792

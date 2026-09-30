@@ -4,9 +4,14 @@ import {OrbitControls} from 'three/addons/controls/OrbitControls.js';
 import {RoomEnvironment} from 'three/addons/environments/RoomEnvironment.js';
 import {renderPixelRatio,RenderBudget} from './render-budget.js';
 export const SHOTS=[
- {x:133,y:98,z:172,tx:3,ty:32,tz:0,fov:40,night:0},
+ {x:170,y:178,z:325,tx:-52,ty:25,tz:42,fov:43,night:0},
  {x:6,y:17,z:69,tx:-21,ty:3.8,tz:25,fov:39,night:.04},
- {x:89,y:42,z:58,tx:40,ty:19,tz:-12,fov:42,night:.08},
+ {x:5,y:31,z:112,tx:-21,ty:8,tz:67,fov:43,night:.06},
+ {x:14,y:31,z:154,tx:-21,ty:7,tz:103,fov:43,night:.08},
+ {x:-23,y:35,z:155,tx:-63,ty:9,tz:103,fov:44,night:.1},
+ {x:-7.4,y:45,z:33.2,tx:-76,ty:8,tz:-8,fov:44,night:.12},
+ {x:-23.9,y:45,z:72.3,tx:-96.75,ty:9,tz:28.53,fov:44,night:.15},
+ {x:89,y:54,z:64,tx:43,ty:16,tz:-13,fov:42,night:.18},
  {x:34,y:39,z:83,tx:-15,ty:39,tz:-8,fov:42,night:.22},
  {x:21,y:89,z:49,tx:-15,ty:75,tz:-8,fov:38,night:.62}
 ];
@@ -22,7 +27,7 @@ export async function createCampusViewer({canvas,container,onProgress,signal}){
  const camera=new THREE.PerspectiveCamera(40,1,.2,1200),state={...SHOTS[0]};
  const controls=new OrbitControls(camera,canvas);controls.enabled=false;controls.enableDamping=true;controls.dampingFactor=.065;controls.enablePan=false;controls.minDistance=15;controls.maxDistance=370;controls.maxPolarAngle=Math.PI*.49;controls.autoRotateSpeed=.3;canvas.style.touchAction='pan-y';
  const hemi=new THREE.HemisphereLight(0xd4edff,0x3b5060,1.5);scene.add(hemi);
- const sun=new THREE.DirectionalLight(0xffe7c2,2.2);sun.position.set(-70,110,80);sun.castShadow=true;sun.shadow.mapSize.set(1024,1024);Object.assign(sun.shadow.camera,{left:-100,right:100,top:110,bottom:-100,near:1,far:300});sun.shadow.bias=-.00025;sun.shadow.normalBias=.15;scene.add(sun);
+ const sun=new THREE.DirectionalLight(0xffe7c2,2.2);sun.position.set(-70,110,80);sun.castShadow=true;sun.shadow.mapSize.set(1024,1024);Object.assign(sun.shadow.camera,{left:-185,right:130,top:190,bottom:-150,near:1,far:500});sun.shadow.bias=-.00025;sun.shadow.normalBias=.15;scene.add(sun);
  const rim=new THREE.DirectionalLight(0x53bfff,1.2);rim.position.set(50,80,-60);scene.add(rim);
  const envSource=new RoomEnvironment(),pmrem=new THREE.PMREMGenerator(renderer),env=pmrem.fromScene(envSource,.04);scene.environment=env.texture;scene.environmentIntensity=.3;envSource.dispose();pmrem.dispose();
  // Render directly with ACES and native antialiasing. The existing CSS shade
@@ -30,8 +35,8 @@ export async function createCampusViewer({canvas,container,onProgress,signal}){
  const model=new THREE.Group();model.name='UnismuhCampus';scene.add(model);const resources=new Set(),geometries=new Set();let assets=[];
  function disposeResources(){geometries.forEach(g=>g.dispose());resources.forEach(m=>m.dispose());controls.dispose();env.dispose();sun.shadow.dispose();renderer.dispose();}
  try{
-  const response=await fetch(`${import.meta.env.BASE_URL}models/manifest.json`,{signal});if(!response.ok)throw new Error('Manifest model tidak ditemukan');({assets}=await response.json());const loader=new GLTFLoader();let loaded=0;
-  const results=await Promise.allSettled(assets.map(async asset=>{const gltf=await loader.loadAsync(`${import.meta.env.BASE_URL}models/${asset.file}`);gltf.scene.name=asset.id;gltf.scene.position.fromArray(asset.position);gltf.scene.traverse(o=>{if(o.isMesh){o.castShadow=o.receiveShadow=true;geometries.add(o.geometry);resources.add(o.material);o.material.envMapIntensity=.3;}});model.add(gltf.scene);onProgress(++loaded/assets.length);}));
+  const response=await fetch(`${import.meta.env.BASE_URL}models/manifest.json`,{signal,cache:'no-cache'});if(!response.ok)throw new Error('Manifest model tidak ditemukan');const manifest=await response.json();assets=manifest.assets.map(asset=>({...asset,version:asset.hash??manifest.version}));const loader=new GLTFLoader();let loaded=0;
+  const results=await Promise.allSettled(assets.map(async asset=>{const gltf=await loader.loadAsync(`${import.meta.env.BASE_URL}models/${asset.file}?v=${asset.version}`);gltf.scene.name=asset.id;gltf.scene.position.fromArray(asset.position);gltf.scene.traverse(o=>{if(o.isMesh){o.castShadow=o.receiveShadow=true;geometries.add(o.geometry);resources.add(o.material);o.material.envMapIntensity=.3;}});model.add(gltf.scene);onProgress(++loaded/assets.length);}));
   if(signal.aborted)throw new Error('Aborted');const failed=results.find(r=>r.status==='rejected');if(failed)throw failed.reason;
  }catch(error){disposeResources();throw error;}
  const waterUniform={value:0};
@@ -56,9 +61,11 @@ export async function createCampusViewer({canvas,container,onProgress,signal}){
   if(!force&&!stateKeys.some((key,i)=>Math.abs(state[key]-lastCamera[i])>.00001||Number.isNaN(lastCamera[i])))return false;
   stateKeys.forEach((key,i)=>lastCamera[i]=state[key]);
   targetPoint.set(state.tx,state.ty,state.tz);offset.set(state.x,state.y,state.z).sub(targetPoint);
-  const mobile=width<760;if(mobile)offset.multiplyScalar(1.5);
+  const mobile=width<760,panorama=THREE.MathUtils.smoothstep(offset.length(),180,330);if(mobile)offset.multiplyScalar(1.5);
   camera.position.copy(targetPoint).add(offset);camera.lookAt(targetPoint);
-  const fov=mobile?47:state.fov;
+  // The expanded western buildings fit narrow screens; widen the panorama
+  // smoothly, then return to the original framing for close-up chapters.
+  const fov=mobile?47+15*panorama:state.fov;
   if(force||camera.fov!==fov){camera.fov=fov;camera.setViewOffset(width,height,mobile?0:-width*.17,mobile?-height*.17:0,width,height);}
   return true;
  }

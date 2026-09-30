@@ -3,10 +3,15 @@
 Pengalaman 3D layar penuh yang bergerak mengikuti scroll. Jalur kamera:
 
 1. Panorama kampus.
-2. Taman depan dan air mancur dengan semburan serta riak air.
-3. Mendekati masjid dan kubah biru.
-4. Beralih ke fasad Menara Iqro.
-5. Naik dan berhenti di mahkota menara pada scroll paling akhir.
+2. Air mancur.
+3. FKIP.
+4. Perpustakaan.
+5. Masjid di samping perpustakaan.
+6. Fakultas Hukum di sisi Menara Iqro.
+7. Pascasarjana berdampingan dengan Hukum.
+8. Balai Sidang.
+9. Menara Iqro.
+10. Mahkota menara pada akhir scroll.
 
 Teks, judul per baris, indikator perjalanan, dan pencahayaan mengikuti progress scroll. Scroll ke atas membalik perjalanan. Tombol navigasi membawa ke posisi scroll yang sesuai. Tidak ada section tambahan setelah puncak.
 
@@ -23,9 +28,9 @@ Distribusikan isi `dist/` melalui HTTP. `base: './'` mendukung hosting di subfol
 
 ## Model individual
 
-`public/models/` berisi tujuh berkas GLB mandiri: `menara-iqro.glb`, `masjid.glb`, `sayap-akademik.glb`, `balai-sidang.glb`, `gerbang.glb`, `lansekap.glb`, dan `air-mancur.glb`.
+`public/models/` berisi sebelas berkas GLB mandiri: `menara-iqro.glb`, `masjid.glb`, `sayap-akademik.glb`, `balai-sidang.glb`, `fkip.glb`, `perpustakaan.glb`, `fakultas-hukum.glb`, `pascasarjana.glb`, `gerbang.glb`, `lansekap.glb`, dan `air-mancur.glb`.
 
-Setiap berkas memiliki pivot X/Z di tengah bagiannya, Y=0 di tanah. `manifest.json` menyimpan posisi untuk merakitnya kembali ke kampus. Website benar-benar memuat ketujuh GLB dengan GLTFLoader. Model dapat diunduh satu per satu melalui tombol Model 3D.
+Setiap berkas memiliki pivot X/Z di tengah bagiannya, Y=0 di tanah. `manifest.json` menyimpan posisi untuk merakitnya kembali ke kampus. Website benar-benar memuat kesebelas GLB dengan GLTFLoader. Model dapat diunduh satu per satu melalui tombol Model 3D.
 
 ```sh
 npm run model:build
@@ -74,7 +79,7 @@ Mode reduced motion meniadakan animasi air dan reveal teks serta menggunakan per
 
 ## Verifikasi
 
-Build produksi dan pemeriksaan struktur GLB dijalankan. Uji browser mencakup lima posisi scroll, scroll balik, posisi puncak di akhir, wheel native, navigasi, orbit/zoom/malam/rotasi, Escape, unduhan model, mobile 390×844, reduced motion, serta fallback saat satu GLB hilang.
+Build produksi dan pemeriksaan struktur GLB dijalankan. Uji browser mencakup sepuluh posisi scroll, scroll balik, posisi puncak di akhir, wheel native, navigasi, orbit/zoom/malam/rotasi, Escape, unduhan model, mobile 390×844, reduced motion, serta fallback saat satu GLB hilang.
 
 Tipografi memadukan Sora untuk judul, DM Sans untuk teks dan navigasi, serta Cormorant Garamond italic untuk aksen. Font WOFF2 dimuat dari `public/fonts/`, disertai lisensi OFL, sehingga tidak membutuhkan koneksi Google Fonts saat pameran. Judul muncul per baris melalui SplitText dengan mask dan stagger, diikuti paragraf serta tombol. Font selesai dimuat sebelum teks dipecah, dan mask diperbarui ketika lebar layar berubah. Ukuran teks diatur untuk layar pameran besar maupun mobile. Geometri signage memakai font contoh Three.js; lisensi font disertakan dalam `public/models/FONT-LICENSE.txt`.
 
@@ -92,8 +97,29 @@ Lihat [DEPLOY.md](DEPLOY.md) untuk upload manual. Pengaturan Vite, npm ci, npm r
 - Partikel air 320 / 160, dengan bounding sphere untuk frustum culling.
 - Progress GSAP menggunakan quickSetter; teks persentase hanya ditulis saat angkanya berubah.
 - Shader dipersiapkan dengan compileAsync sebelum loader ditutup. Foto referensi dalam dialog dimuat secara lazy.
-- Header cache GLB dan font selama satu jam untuk kunjungan berulang; HTML tidak diberi cache panjang. Setelah mengganti berkas model atau font dengan nama yang sama, cache browser bisa bertahan sampai satu jam.
+- Header cache GLB dan font selama satu jam untuk kunjungan berulang; HTML tidak diberi cache panjang. GLB memakai hash isi berkas pada URL agar pembaruan langsung memakai versi baru. Font dengan nama yang sama bisa tersimpan sampai satu jam.
 
 Pemeriksaan kebijakan resolusi: `node scripts/validate-performance.mjs`.
 
 Optimasi ini mengurangi pekerjaan render; tidak menetapkan klaim kenaikan FPS tanpa pengukuran pada perangkat dan URL deployment yang digunakan.
+
+## Koreksi tata letak dan tur kampus
+
+Bangunan berkubah di sebelah Menara Iqro adalah Balai Sidang. FKIP tetap berada di seberang jalan di depan air mancur, dan perpustakaan di depan FKIP. Masjid berada di samping kiri perpustakaan.
+
+Fakultas Hukum berada di sisi kiri kompleks Menara Iqro. Pintu utama dan fasad depannya diputar mengarah langsung ke air mancur. Pascasarjana sejajar di samping Hukum, bukan di belakangnya. Kedua fasad depan berada pada satu garis yang mengikuti rotasi gedung. Pascasarjana bergeser ke samping fasad Hukum, bukan ke arah belakangnya. Plaza yang sama menghubungkan pintu kedua gedung dengan taman kampus.
+
+Tur scroll dan tombol navigasi memiliki 10 posisi kamera, dengan teks untuk setiap tujuan. Kamera melewati FKIP, perpustakaan, masjid, Hukum, Pascasarjana, dan Balai Sidang sebelum naik ke Menara Iqro serta mahkotanya. Scroll ke atas membalik tur. Navigasi mobile bisa digeser horizontal dan otomatis mengikuti bab aktif. Durasi pin mengikuti jumlah tujuan, sehingga puncak tetap berada di akhir scroll.
+
+Manifest versi 4 menyimpan posisi, bounds, hash GLB, serta arah pintu. Model baru tetap digabung per material dan memakai render adaptif serta shadow statis. Total sebelas GLB sekitar 2,55 MiB. Wujud dan dimensi bangunan tambahan merupakan interpretasi karena belum ada foto fasad tiap gedung atau denah terukur.
+
+Pemeriksaan:
+
+```sh
+npm run model:check
+node scripts/validate-tour.mjs
+node scripts/validate-performance.mjs
+npm run build
+```
+
+Validator memeriksa bounds dari data GLB, jarak jalan, masjid di samping perpustakaan, Hukum/Pascasarjana sejajar, arah pintu ke air mancur, jumlah bab/tombol, target kamera, clearance lintasan kamera dan posisi puncak terakhir. Manifest memakai revalidasi; URL GLB dan unduhan menyertakan hash isi berkas untuk menghindari model lama dari cache.

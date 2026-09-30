@@ -4,6 +4,7 @@ import { GLTFExporter } from 'three/addons/exporters/GLTFExporter.js';
 import { FontLoader } from 'three/addons/loaders/FontLoader.js';
 import { TextGeometry } from 'three/addons/geometries/TextGeometry.js';
 import { readFile, writeFile, mkdir } from 'node:fs/promises';
+import {createHash} from 'node:crypto';
 
 // Deterministic, photo-inspired architectural study; dimensions are approximate.
 // A real binary glTF is generated here; the website loads this file with GLTFLoader.
@@ -114,8 +115,8 @@ for(const cx of [-38,8]) {
   box('roof',25,.35,14,cx,33.8,-9);
 }
 finish();
-// Large mosque mass on the right: blue hipped roof, dome, pointed arches.
-begin('Masjid');
+// The domed building beside the tower is Balai Sidang (user correction).
+begin('Balai_Sidang');
 box('ivory',37,18,33,43,9,-13);
 box('trim',39,.8,35,43,1,-13);
 for(let j=0;j<8;j++) {
@@ -138,13 +139,75 @@ cyl('trim',7.4,8.2,1.8,43,24.4,-13,32);
 dome('roof',7.7,43,25.2,-13);
 cyl('gold',.12,.25,3.1,43,31.6,-13,12);
 cyl('gold',.5,.5,.6,43,33.1,-13,12);
+box('ivory',18,1.8,.3,43,16.5,4.7);
+text('BALAI SIDANG',.85,43,16.1,4.95,'blue');
 finish();
-// Foreground hall on the right, with folded blue roof planes.
-begin('Balai_Sidang');
+// FKIP sits across a clear road in front of the fountain.
+begin('FKIP');
 box('ivory',31,10,21,41,5,24);
 for(let i=0;i<8;i++) { box('glass',2,3,.2,28+i*3.7,6.3,34.6); box('ivory',.5,10,.8,27+i*4,5,34.9); }
 box('trim',33,.6,23,41,10.4,24); roof(35,25,8,41,10.7,24,'blue');
 box('ivory',12,5,3,41,11,36); roof(15,7,5,41,13.5,35,'blue');
+text('FKIP',1.2,41,10.7,37.6,'blue');
+for(const geos of Object.values(buckets.geos))for(const geo of geos)geo.translate(-62,0,42);
+finish();
+// Additional campus buildings use compact merged geometry, not cloned meshes.
+function academicBuilding(name,label,x,z,{width=30,depth=22,floors=4,rotation=0}={}){
+  begin(name);
+  const height=floors*3.4;
+  box('ivory',width,height,depth,x,height/2,z);
+  box('trim',width+2,.5,depth+2,x,.5,z);
+  for(let floor=0;floor<floors;floor++){
+    const y=2+floor*3.4;
+    for(const side of [-1,1]){
+      for(let col=0;col<7;col++){
+        const cx=x-width*.4+col*width*.8/6;
+        box('glass',2.4,2.1,.18,cx,y,z+side*(depth/2+.1));
+        box('trim',2.6,.14,.45,cx,y-1.1,z+side*(depth/2+.15));
+      }
+      box('trim',width+1,.35,.5,x,y-1.5,z+side*(depth/2+.2));
+    }
+  }
+  box('glass',6,3.2,.2,x,1.9,z+depth/2+.35);
+  for(const dx of [-4,4])box('ivory',.65,4,3,x+dx,2,z+depth/2+1.2);
+  box('trim',10,.45,4,x,4.2,z+depth/2+1.2);
+  box('ivory',width-2,2,.5,x,height-.7,z+depth/2+.4);
+  text(label,.72,x,height-1.2,z+depth/2+.7,'blue');
+  box('blue',width+2,.5,depth+2,x,height+.3,z);
+  roof(width+4,depth+4,4,x,height+.55,z,'blue');
+  if(rotation)for(const geos of Object.values(buckets.geos))for(const geo of geos){geo.translate(-x,0,-z);geo.rotateY(rotation);geo.translate(x,0,z);}
+  finish();
+}
+academicBuilding('Perpustakaan','PERPUSTAKAAN',-21,103,{width:30,depth:20,floors:3});
+const lawAngle=Math.atan2(-21-(-76),25-(-8));
+// Side means along the facade, perpendicular to its front direction.
+// Account for the 1-unit depth difference so both front walls align.
+const pascaX=-76-42*Math.cos(lawAngle)+Math.sin(lawAngle);
+const pascaZ=-8+42*Math.sin(lawAngle)+Math.cos(lawAngle);
+academicBuilding('Fakultas_Hukum','FAKULTAS HUKUM',-76,-8,{width:30,depth:24,floors:4,rotation:lawAngle});
+academicBuilding('Pascasarjana','PASCASARJANA',pascaX,pascaZ,{width:30,depth:22,floors:4,rotation:lawAngle});
+// Mosque beside the library. Geometry is shifted into its new independent plot.
+begin('Masjid');
+box('ivory',30,10,26,-149,5,103);
+box('trim',32,.7,28,-149,.6,103);
+for(let col=0;col<5;col++){
+  const x=-160+col*5.5;
+  box('darkglass',3.3,5,.2,x,4,116.2);
+  const arch=new THREE.TorusGeometry(1.65,.25,5,12,Math.PI);
+  put('trim',arch,x,6.4,116.4);
+  for(const dx of [-1.65,1.65])box('trim',.45,5.9,.5,x+dx,3.45,116.4);
+}
+box('blue',33,.6,29,-149,10.4,103);
+roof(35,31,4,-149,10.7,103,'roof');
+cyl('trim',5,5.5,1.2,-149,14.8,103,24);
+dome('roof',5.2,-149,15.4,103);
+cyl('gold',.12,.2,2,-149,19.8,103,8);
+cyl('ivory',1.1,1.5,20,-167,10,94,12);
+cyl('blue',1.7,1.7,.6,-167,19.7,94,12);
+dome('roof',1.7,-167,20.1,94);
+cyl('gold',.08,.13,1.7,-167,22,94,8);
+text('MASJID KAMPUS',.72,-149,8.8,116.7,'blue');
+for(const geos of Object.values(buckets.geos))for(const geo of geos)geo.translate(86,0,0);
 finish();
 // Small circular entrance building from the left foreground of the photo.
 begin('Gerbang');
@@ -155,9 +218,22 @@ roof(13,13,5,-47,10.6,21,'blue');
 finish();
 // Landscape, paths and an arrival court are all included in the GLB.
 begin('Lansekap');
-box('base',128,2.4,97,5,-1.4,3);
-box('paving',126,.4,95,5,0,3);
-box('road',118,.12,14,5,.26,39);
+box('base',244,2.4,176,-53,-1.4,40);
+box('paving',242,.4,174,-53,0,40);
+// Fountain -> road -> FKIP -> library. A second lane serves the western row.
+box('road',133,.12,10,-3,.26,45);
+box('road',170,.12,8,-91,.26,84);
+box('road',10,.12,71,-42,.26,81);
+box('road',10,.12,73,-172,.26,83);
+box('paving',16,.16,11,-21,.4,87);
+box('paving',30,.16,6,-21,.4,119);
+box('paving',30,.16,6,-63,.4,120);
+// Shared arrival court connects the side-by-side Hukum / Pascasarjana row.
+put('paving',new THREE.BoxGeometry(78,.16,10),(-76+pascaX)/2+Math.sin(lawAngle)*20,.4,(-8+pascaZ)/2+Math.cos(lawAngle)*20,lawAngle);
+box('paving',8,.16,30,-71,.4,33);
+box('grass',82,.3,12,-116,.5,73);
+box('trim',84,.22,14,-116,.31,73);
+box('grass',82,.3,12,-116,.5,73);
 box('road',12,.12,79,0,.26,-1);
 box('road',11,.12,75,-55,.26,0);
 box('grass',26,.3,25,-21,.5,25);
@@ -165,8 +241,10 @@ box('trim',28,.22,27,-21,.31,25);
 box('grass',26,.3,25,-21,.5,25);
 box('paving',2,.12,25,-21,.69,25);
 box('paving',26,.12,2,-21,.69,25);
-for(let i=0;i<19;i++) box('line',3,.03,.2,-50+i*6,.35,40);
-for(let i=0;i<10;i++) box('line',.25,.04,4.4,12+i*4.4,.35,43);
+for(let i=0;i<20;i++)box('line',3,.03,.2,-62+i*6,.35,45);
+for(let i=0;i<27;i++)box('line',3,.03,.2,-168+i*6,.35,84);
+for(let i=0;i<6;i++)box('line',.8,.03,7,-24+i*1.3,.35,45);
+for(let i=0;i<10;i++)box('line',.25,.04,4.4,12+i*4.4,.35,49);
 // Palm silhouettes: curved fronds, slim trunks, no external texture requests.
 function tree(x,z,h=6,palm=false) {
   cyl('trunk',.23,.4,h,x,h/2+.5,z,7);
@@ -184,6 +262,8 @@ for(const x of [-32,-11]) for(const z of [17,32]) tree(x,z,6,true);
 for(let i=0;i<9;i++) tree(-51+i*13,-38,4.2+(i%3));
 for(let i=0;i<6;i++) tree(-55, -27+i*11,5,true);
 for(const x of [13,23,57]) tree(x,32,4);
+for(const x of [-75,-53,-33,-9])tree(x,123,4);
+for(const x of [-145,-125,-100,-80])tree(x,73,4,true);
 for(let i=0;i<8;i++) { box('leaf',2.2,1.1,1.4,-31+i*3,.95,37); }
 for(const x of [-42,7,60]) {
   cyl('trim',.13,.18,7,x,3.6,39,8); box('gold',1.2,.2,.8,x,7.2,39);
@@ -208,8 +288,8 @@ finish();
 root.updateMatrixWorld(true);
 const exporter = new GLTFExporter();
 await mkdir(new URL('../public/models/',import.meta.url),{recursive:true});
-const names={Menara_Iqro:['menara-iqro','Menara Iqro'],Sayap_Akademik:['sayap-akademik','Sayap akademik'],Masjid:['masjid','Masjid kampus'],Balai_Sidang:['balai-sidang','Balai sidang'],Gerbang:['gerbang','Gerbang kampus'],Lansekap:['lansekap','Lansekap kampus'],Air_Mancur:['air-mancur','Air mancur']};
-const manifest={version:1,description:'Photo-inspired reconstruction with approximate dimensions. Fountain is an artistic addition.',assets:[]};
+const names={Menara_Iqro:['menara-iqro','Menara Iqro'],Sayap_Akademik:['sayap-akademik','Sayap akademik'],Masjid:['masjid','Masjid kampus'],Balai_Sidang:['balai-sidang','Balai Sidang'],FKIP:['fkip','FKIP'],Perpustakaan:['perpustakaan','Perpustakaan'],Fakultas_Hukum:['fakultas-hukum','Fakultas Hukum'],Pascasarjana:['pascasarjana','Pascasarjana'],Gerbang:['gerbang','Gerbang kampus'],Lansekap:['lansekap','Lansekap kampus'],Air_Mancur:['air-mancur','Air mancur']};
+const manifest={version:4,description:'Photo-inspired architecture with approximate dimensions; extended campus layout follows user directions. Fountain is an artistic addition.',layout:{frontAxis:'+Z',leftAxis:'-X',frontSequence:['Air_Mancur','Jalan_Depan','FKIP','Perpustakaan'],libraryNeighbors:['Perpustakaan','Masjid'],towerSideRow:['Menara_Iqro','Fakultas_Hukum','Pascasarjana'],entrances:{Fakultas_Hukum:{center:[-76,0,-8],frontDepth:12,direction:[Math.sin(lawAngle),0,Math.cos(lawAngle)],faces:'Air_Mancur'},Pascasarjana:{center:[pascaX,0,pascaZ],frontDepth:11,direction:[Math.sin(lawAngle),0,Math.cos(lawAngle)]}},road:{centerZ:45,width:10}},assets:[]};
 for(const part of root.children){
   const bounds=new THREE.Box3().setFromObject(part),center=bounds.getCenter(new THREE.Vector3());
   const offset=new THREE.Vector3(center.x,0,center.z),copy=part.clone(true);
@@ -219,7 +299,8 @@ for(const part of root.children){
   const result=await exporter.parseAsync(copy,{binary:true,onlyVisible:true});
   await writeFile(new URL(`../public/models/${file}`,import.meta.url),Buffer.from(result));
   let triangles=0,meshes=0;copy.traverse(o=>{if(o.isMesh){meshes++;triangles+=(o.geometry.index?.count??o.geometry.attributes.position.count)/3;}});
-  manifest.assets.push({id:part.name,label,file,position:offset.toArray(),bytes:result.byteLength,meshes,triangles});
+  const hash=createHash('sha256').update(Buffer.from(result)).digest('hex').slice(0,12);
+  manifest.assets.push({id:part.name,label,file,hash,position:offset.toArray(),bounds:{min:bounds.min.toArray(),max:bounds.max.toArray()},bytes:result.byteLength,meshes,triangles});
   copy.traverse(o=>o.geometry?.dispose());
 }
 await writeFile(new URL('../public/models/manifest.json',import.meta.url),JSON.stringify(manifest,null,2));
