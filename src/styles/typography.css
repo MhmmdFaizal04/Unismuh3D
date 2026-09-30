@@ -1,0 +1,30 @@
+/* Exhibition typography: geometric structure, soft readable copy, expressive serif. */
+:root{font-family:'DM Sans',Arial,sans-serif;--heading:'Sora',Arial,sans-serif;--accent:'Cormorant Garamond',Georgia,serif}
+body{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+.brand{font-family:var(--heading);font-weight:600;letter-spacing:2px;font-size:14px}
+.brand small,.header-actions,.header-caption,.scene-coordinate{font-family:'DM Sans',sans-serif}
+.chapter h1,.chapter h2{font-family:var(--heading);font-size:clamp(43px,4.65vw,82px);font-weight:500;line-height:1.17;letter-spacing:-.055em;margin-bottom:27px;font-kerning:normal;perspective:700px}
+.chapter h1 em,.chapter h2 em{font-family:var(--accent);font-weight:500;font-style:italic;font-size:1.28em;line-height:.86;letter-spacing:-.055em;color:#b8eedb}
+.story-line{transform-origin:50% 100%;backface-visibility:hidden;will-change:transform,opacity}
+.story-line-mask{padding:.13em .045em .15em .025em;margin:-.13em -.045em -.15em -.025em;perspective:700px}
+.chapter-description{font-family:'DM Sans',Arial,sans-serif;font-size:14px;line-height:1.85;font-weight:400;color:#b4c8d4;max-width:355px;letter-spacing:.005em}
+.eyebrow{font-family:'DM Sans',sans-serif;font-size:10px;letter-spacing:.2em;font-weight:500;color:#c1d4df}
+.eyebrow>span{font-family:var(--heading);font-size:9px;font-weight:500}
+.journey-button{font-size:12px;font-weight:600;letter-spacing:.015em;padding:16px 21px}
+.chapter-meta p{font-size:10px;line-height:1.7}.chapter-meta strong{color:#adc7d5}
+.story-detail p{font-size:9px;letter-spacing:.14em}.story-detail small{font-size:11px;line-height:1.6;letter-spacing:.01em;color:#a0bacb}
+.landmark-label div>span{font-family:var(--heading);font-size:15px;font-weight:400;letter-spacing:-.035em}
+.landmark-label small{font-size:7px;letter-spacing:.13em}
+.chapter-stop b{font-family:'DM Sans',sans-serif;font-size:10px;letter-spacing:.01em}
+.chapter-stop>span,.load-percent,.label-index,.journey-side{font-family:var(--heading);font-weight:400}
+.scroll-cue>span{font-size:8px;letter-spacing:.15em}
+dialog h2{font-family:var(--heading);font-weight:500;letter-spacing:-.055em;line-height:1.2}
+dialog h2 em{font-family:var(--accent);font-weight:500;font-style:italic;font-size:1.2em;letter-spacing:-.04em}
+dialog>p{font-size:13px;line-height:1.85}
+.asset-list a{font-size:13px}
+@media(min-width:1700px){.chapter{max-width:660px}.chapter h1,.chapter h2{font-size:86px}.chapter-description{font-size:17px;max-width:420px}.eyebrow{font-size:11px}.journey-button{font-size:14px}.chapter-meta p{font-size:12px}.story-detail small{font-size:13px}}
+@media(min-width:761px) and (max-height:800px){.chapter h1,.chapter h2{font-size:clamp(42px,4.4vw,63px);line-height:1.15;margin-bottom:22px}.chapter-description{font-size:13px;margin-bottom:23px}.eyebrow{font-size:9px;margin-bottom:22px}.chapter-meta{margin-top:23px}.story-detail{margin-top:23px}.journey-button{padding:14px 19px}}
+@media(min-width:761px) and (max-width:1000px){.chapter h1,.chapter h2{font-size:clamp(40px,5.1vw,51px)}.chapter-description{font-size:12px;max-width:305px}.eyebrow{font-size:8px}}
+@media(max-width:760px){.brand{font-size:11px}.brand small{font-size:6px}.chapter h1,.chapter h2{font-size:clamp(31px,9.3vw,45px);line-height:1.15;letter-spacing:-.055em;margin-bottom:17px}.chapter h1 em,.chapter h2 em{font-size:1.35em}.chapter-description{font-size:12px;line-height:1.75;max-width:310px;margin-bottom:18px}.eyebrow{font-size:7px;letter-spacing:.18em;margin-bottom:17px}.eyebrow>span{font-size:7px}.journey-button{font-size:10px;padding:11px 14px}.story-detail p{font-size:8px}.story-detail small{font-size:9px}.landmark-label div>span{font-size:11px}.landmark-label small{font-size:5px}.chapter-stop b{font-size:8px}.chapter-stop>span{font-size:6px}.scroll-cue>span{font-size:6px}.restart{font-size:10px}.story-line-mask{padding-top:.15em;margin-top:-.15em}dialog h2{font-size:29px}}
+@media(max-width:760px) and (max-height:730px){.chapter h1,.chapter h2{font-size:clamp(28px,8.5vw,35px);line-height:1.12;margin-bottom:14px}.chapter-description{font-size:11px;line-height:1.7;margin-bottom:15px}.eyebrow{margin-bottom:14px}.journey-button{padding:10px 13px;font-size:9px}}
+@media(prefers-reduced-motion:reduce){.story-line{will-change:auto}}

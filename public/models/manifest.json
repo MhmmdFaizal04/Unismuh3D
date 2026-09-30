@@ -1,0 +1,97 @@
+{
+  "version": 1,
+  "description": "Photo-inspired reconstruction with approximate dimensions. Fountain is an artistic addition.",
+  "assets": [
+    {
+      "id": "Menara_Iqro",
+      "label": "Menara Iqro",
+      "file": "menara-iqro.glb",
+      "position": [
+        -15,
+        0,
+        -2.9749999046325684
+      ],
+      "bytes": 390140,
+      "meshes": 7,
+      "triangles": 5536
+    },
+    {
+      "id": "Sayap_Akademik",
+      "label": "Sayap akademik",
+      "file": "sayap-akademik.glb",
+      "position": [
+        -15,
+        0,
+        -8.850000001490116
+      ],
+      "bytes": 682508,
+      "meshes": 4,
+      "triangles": 11376
+    },
+    {
+      "id": "Masjid",
+      "label": "Masjid kampus",
+      "file": "masjid.glb",
+      "position": [
+        43,
+        0,
+        -13
+      ],
+      "bytes": 134284,
+      "meshes": 7,
+      "triangles": 3740
+    },
+    {
+      "id": "Balai_Sidang",
+      "label": "Balai sidang",
+      "file": "balai-sidang.glb",
+      "position": [
+        41,
+        0,
+        25
+      ],
+      "bytes": 21604,
+      "meshes": 4,
+      "triangles": 236
+    },
+    {
+      "id": "Gerbang",
+      "label": "Gerbang kampus",
+      "file": "gerbang.glb",
+      "position": [
+        -47,
+        0,
+        21
+      ],
+      "bytes": 30656,
+      "meshes": 3,
+      "triangles": 484
+    },
+    {
+      "id": "Lansekap",
+      "label": "Lansekap kampus",
+      "file": "lansekap.glb",
+      "position": [
+        4.25,
+        0,
+        3
+      ],
+      "bytes": 270676,
+      "meshes": 10,
+      "triangles": 5072
+    },
+    {
+      "id": "Air_Mancur",
+      "label": "Air mancur",
+      "file": "air-mancur.glb",
+      "position": [
+        -21,
+        0,
+        25.000000953674316
+      ],
+      "bytes": 136708,
+      "meshes": 5,
+      "triangles": 3792
+    }
+  ]
+}
