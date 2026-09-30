@@ -10,6 +10,7 @@ CustomEase.create('campus-travel','.42,0,.22,1');
 const LABELS=[['PERSPEKTIF KAMPUS','UNIVERSITAS MUHAMMADIYAH MAKASSAR','Kampus Unismuh'],['RUANG TERBUKA','TAMAN DEPAN KAMPUS','Air mancur'],['MASJID KAMPUS','ILMU & KEIMANAN','Masjid kampus'],['MENARA IQRO','IKON VERTIKAL KAMPUS','Menara Iqro'],['PUNCAK MENARA','PANDANGAN KE MASA DEPAN','Mahkota Iqro']];
 export function createJourney(campus){
  const root=document.getElementById('experience'),panels=gsap.utils.toArray('.chapter',root),stops=gsap.utils.toArray('.chapter-stop',root);
+ const routeFill=gsap.quickSetter('#route-fill','scaleX'),sideFill=gsap.quickSetter('#side-progress','scaleY'),percent=document.getElementById('journey-percent');let lastPercent=-1;
  const mm=gsap.matchMedia();let master,trigger,active=-1,reduced=false,previousProgress=0;
  function activate(index){
   if(index===active)return;active=index;
@@ -41,7 +42,7 @@ export function createJourney(campus){
   }
   trigger=ScrollTrigger.create({trigger:document.getElementById('journey'),pin:root,start:'top top',end:()=>`+=${window.innerHeight*(ctx.conditions.mobile?5.4:5.8)}`,animation:master,scrub:reduced?true:1.05,invalidateOnRefresh:true,anticipatePin:1,onUpdate:self=>{
    previousProgress=self.progress;
-   gsap.set('#route-fill',{scaleX:self.progress});gsap.set('#side-progress',{scaleY:self.progress});document.getElementById('journey-percent').textContent=String(Math.round(self.progress*100)).padStart(2,'0');
+   routeFill(self.progress);sideFill(self.progress);const value=Math.round(self.progress*100);if(value!==lastPercent){lastPercent=value;percent.textContent=String(value).padStart(2,'0');}
   }});
   let finishIntro;
   if(!reduced){

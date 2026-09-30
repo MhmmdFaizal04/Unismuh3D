@@ -39,7 +39,7 @@ Model merupakan interpretasi dari foto referensi pengguna, bukan survei arsitekt
 ## Struktur
 
 - `src/core/journey.js`: GSAP master timeline, ScrollTrigger pin/scrub, animasi teks, navigasi dan reduced motion.
-- `src/core/campus-viewer.js`: model modular, kamera, lighting, fountain shader, postprocessing dan free orbit.
+- `src/core/campus-viewer.js`: model modular, kamera, lighting, fountain shader, render adaptif dan free orbit.
 - `src/main.js`: pemuatan, dialog model, unduhan, fallback dan event lifecycle.
 - `src/styles/main.css`: layout layar penuh, overlay narasi dan framing mobile.
 
@@ -66,11 +66,11 @@ Seluruh 18 SKILL.md dalam `.agents/skills/` ditinjau. Penerapan:
 | threejs-loaders | GLTFLoader async, progress, manifest, error dan fallback. |
 | threejs-animation | Loop berbasis delta untuk partikel dan gerak air; jeda saat tab tersembunyi. |
 | threejs-interaction | OrbitControls, zoom, rotasi otomatis, kontrol keyboard +/− dan Escape. |
-| threejs-postprocessing | EffectComposer, bloom adaptif, grading halus dan OutputPass. |
-| threejs-shaders | Riak air melalui onBeforeCompile, partikel semburan, vignette. |
+| threejs-postprocessing | Ditinjau dan disederhanakan setelah optimasi: render langsung dengan ACES; efek layar penuh digantikan overlay CSS. |
+| threejs-shaders | Riak air melalui onBeforeCompile, partikel semburan dengan batas frustum. |
 | threejs-textures | PMREM environment texture, color space dan disposal. |
 
-Mode reduced motion meniadakan animasi air dan reveal teks serta menggunakan pergantian kamera langsung. DPR, shadow map dan bloom diturunkan untuk mobile. Jika GLB gagal, tersedia retry dan perjalanan teks dengan foto.
+Mode reduced motion meniadakan animasi air dan reveal teks serta menggunakan pergantian kamera langsung. Resolusi render dibatasi berdasarkan jumlah piksel dan kemampuan perangkat; shadow map statis 1024px dipakai ulang. Jika GLB gagal, tersedia retry dan perjalanan teks dengan foto.
 
 ## Verifikasi
 
@@ -81,3 +81,19 @@ Tipografi memadukan Sora untuk judul, DM Sans untuk teks dan navigasi, serta Cor
 ## Deploy ke GitHub dan Vercel
 
 Lihat [DEPLOY.md](DEPLOY.md) untuk upload manual. Pengaturan Vite, npm ci, npm run build, dan dist sudah tersedia di vercel.json. Source dan aset diunggah ke GitHub; node_modules dan dist diabaikan oleh Git.
+
+## Optimasi performa deployment
+
+- Render langsung satu pass dengan ACES dan native antialiasing; tanpa bloom, render target HDR, atau MSAA tambahan pada composer.
+- Shadow map statis 1024px dihitung sekali karena posisi bangunan dan arah matahari tetap. Transisi intensitas cahaya tetap berjalan.
+- Render buffer maksimal 2,1 juta piksel di desktop / 0,9 juta di perangkat ringan. DPR awal maksimal 1,5 / 1,15. Jika interval frame aktif terus melebihi 23ms selama 90 sampel, resolusi diturunkan bertahap sampai 65% dari kualitas awal. Teks HTML tetap memakai resolusi layar asli.
+- Kamera dan matriks proyeksi diperbarui hanya ketika berubah. Transform lokal geometri statis tidak dihitung ulang.
+- Kamera bergerak dirender maksimal 60fps. Air yang terlihat dari dekat dirender maksimal 30fps (24fps pada perangkat ringan). Saat kamera diam dan air tidak perlu bergerak, render frame dilewati. Loop dihentikan saat tab tersembunyi.
+- Partikel air 320 / 160, dengan bounding sphere untuk frustum culling.
+- Progress GSAP menggunakan quickSetter; teks persentase hanya ditulis saat angkanya berubah.
+- Shader dipersiapkan dengan compileAsync sebelum loader ditutup. Foto referensi dalam dialog dimuat secara lazy.
+- Header cache GLB dan font selama satu jam untuk kunjungan berulang; HTML tidak diberi cache panjang. Setelah mengganti berkas model atau font dengan nama yang sama, cache browser bisa bertahan sampai satu jam.
+
+Pemeriksaan kebijakan resolusi: `node scripts/validate-performance.mjs`.
+
+Optimasi ini mengurangi pekerjaan render; tidak menetapkan klaim kenaikan FPS tanpa pengukuran pada perangkat dan URL deployment yang digunakan.
