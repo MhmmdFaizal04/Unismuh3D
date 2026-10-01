@@ -9,7 +9,9 @@
     "build": "vite build",
     "preview": "vite preview",
     "model:build": "node scripts/generate-campus.mjs",
-    "model:check": "node scripts/validate-models.mjs"
+    "model:check": "node scripts/validate-models.mjs",
+    "intro:build": "node scripts/convert-reference-hand.mjs && node scripts/generate-logo.mjs",
+    "logo:build": "node scripts/generate-logo.mjs"
   },
   "dependencies": {
     "gsap": "^3.12.5",

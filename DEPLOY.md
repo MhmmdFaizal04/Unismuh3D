@@ -45,7 +45,7 @@ Ekstrak ZIP source yang disiapkan. Di repository GitHub, pilih Add file → Uplo
 
 `vercel.json` sudah menyimpan pengaturan build tersebut. Model GLB tidak perlu dibuat ulang saat deploy karena sudah disertakan di public/models. Navigasi website memakai hash dan scroll, sehingga tidak membutuhkan rewrite SPA.
 
-Setelah deploy, periksa pemuatan logo/model/font, lima bab perjalanan, scroll balik, tombol Model 3D, dan tampilan mobile. Untuk pameran, buka website di perangkat dan browser yang akan dipakai serta pastikan WebGL tersedia.
+Setelah deploy, periksa pemuatan logo/model/font, opening salam, sepuluh bab perjalanan, scroll balik, tombol Model 3D, dan tampilan mobile. Untuk pameran, buka website di perangkat dan browser yang akan dipakai serta pastikan WebGL tersedia.
 
 Dokumentasi resmi: https://vercel.com/docs/frameworks/frontend/vite
 
@@ -67,3 +67,7 @@ git push
 ```
 
 Jika repo telah terhubung ke Vercel dengan Git integration, push berikutnya akan memicu deployment sesuai pengaturan branch proyek.
+
+Opening memakai public/intro/emblem-hand.glb. Sertakan folder public/intro saat upload manual. Build opening ulang dengan npm run intro:build bila generator diubah. Layar Memuat denah kampus dipertahankan sesudah opening.
+
+Sertakan public/intro/logo-unismuh-3d.glb bersama emblem-hand.glb. Logo GLB menyimpan teksturnya sendiri dan tidak membutuhkan file gambar tambahan saat dimuat.

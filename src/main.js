@@ -1,4 +1,5 @@
 import gsap from 'gsap';
+import {createOpening} from './core/opening.js';
 
 import {createJourney} from './core/journey.js';
 
@@ -47,6 +48,10 @@ window.addEventListener('keydown',e=>{if(e.key==='Escape'&&free&&!document.query
 function fillAssets(assets){const list=$('#asset-list');list.replaceChildren();assets.forEach(asset=>{const a=document.createElement('a');a.href=`${import.meta.env.BASE_URL}models/${asset.file}?v=${asset.version??1}`;a.download=asset.file;a.textContent=asset.label;const size=document.createElement('small');size.textContent=`GLB · ${Math.round(asset.bytes/1024)} KB`;const arrow=document.createElement('span');arrow.textContent='↓';a.append(size,arrow);list.append(a);});}
 
 async function boot(){
+ const loaderHold=new Promise(resolve=>{
+  let timer;const observer=new IntersectionObserver(entries=>{if(entries[0].intersectionRatio>=.2){observer.disconnect();timer=setTimeout(resolve,950);}},{threshold:.2});
+  observer.observe($('#experience'));signal.addEventListener('abort',()=>{observer.disconnect();clearTimeout(timer);resolve();},{once:true});
+ });
 
  try{
 
@@ -65,6 +70,8 @@ async function boot(){
   fillAssets(campus.assets);$('#orbit-button').disabled=false;
 
   await typographyReady;
+
+  await loaderHold;
 
   if(signal.aborted)return;
 
@@ -88,9 +95,9 @@ async function boot(){
 
 }
 
-boot();
+const opening=createOpening({onEnterCampus:boot,signal});
 
-function dispose(){abort.abort();journey?.dispose();campus?.dispose();gsap.killTweensOf('#loader');document.body.style.overflow='';}
+function dispose(){abort.abort();opening.dispose();journey?.dispose();campus?.dispose();gsap.killTweensOf('#loader');document.body.style.overflow='';}
 
 if(import.meta.hot)import.meta.hot.dispose(dispose);
 

@@ -11,9 +11,20 @@
 <link rel="stylesheet" href="/fonts/fonts.css"/>
 <link rel="stylesheet" href="/src/styles/main.css"/>
 <link rel="stylesheet" href="/src/styles/typography.css"/>
+<link rel="stylesheet" href="/src/styles/opening.css"/>
 </head>
 <body>
 <a class="skip" href="#chapter-navigation">Lewati ke navigasi perjalanan</a>
+<section class="opening" id="opening" aria-label="Opening Welcome Unismuh">
+ <div class="opening-stage">
+  <header class="opening-header"><div class="opening-brand"><img src="./images/logo-unismuh.png" alt="Logo Unismuh" width="42" height="42"/><span>UNISMUH<small>MAKASSAR</small></span></div><button id="opening-skip">Langsung ke kampus ↗</button></header>
+  <div class="opening-welcome"><p class="opening-kicker">SEBUAH IDENTITAS. SEBUAH PERJALANAN.</p><h1 class="opening-title"><span>Welcome</span><span>UNISMUH</span></h1><p class="opening-subtitle">Pertemuan pertama, untuk perjalanan pengetahuan yang tak berakhir.</p></div>
+  <canvas class="opening-canvas" id="opening-canvas" aria-label="Tangan 3D memegang logo Unismuh dan mengangkatnya mengikuti scroll"></canvas>
+  <div class="opening-hand-caption"><p>Ilmu dalam genggaman.</p><small>Dari sebuah identitas, menuju perjalanan tanpa batas.</small></div>
+  <div class="opening-next"><p>Mari mengenal kampus.</p><small>SEBUAH PERSPEKTIF BARU MENANTI</small></div>
+  <div class="opening-scroll">GULIR UNTUK MEMULAI<b>↓</b></div>
+ </div>
+</section>
 <main id="journey">
  <div class="experience" id="experience">
   <div class="scene" id="scene"><canvas id="webgl" aria-label="Visualisasi 3D kampus mengikuti posisi scroll"></canvas></div>
@@ -38,7 +49,7 @@
   <nav class="chapter-navigation" id="chapter-navigation" aria-label="Navigasi perjalanan"><div class="route-stops"><div class="route-track"><i id="route-fill"></i></div><button class="chapter-stop active" data-chapter="0" aria-current="step"><i></i><span>01 <b>Kampus</b></span></button><button class="chapter-stop" data-chapter="1"><i></i><span>02 <b>Air mancur</b></span></button><button class="chapter-stop" data-chapter="2"><i></i><span>03 <b>FKIP</b></span></button><button class="chapter-stop" data-chapter="3"><i></i><span>04 <b>Perpus</b></span></button><button class="chapter-stop" data-chapter="4"><i></i><span>05 <b>Masjid</b></span></button><button class="chapter-stop" data-chapter="5"><i></i><span>06 <b>Kuliah</b></span></button><button class="chapter-stop" data-chapter="6"><i></i><span>07 <b>Pasca</b></span></button><button class="chapter-stop" data-chapter="7"><i></i><span>08 <b>Balai</b></span></button><button class="chapter-stop" data-chapter="8"><i></i><span>09 <b>Menara</b></span></button><button class="chapter-stop" data-chapter="9"><i></i><span>10 <b>Puncak</b></span></button></div></nav>
   <div class="bottom-caption"><span>UNISMUH · CAMPUS JOURNEY</span><button id="about-button">Tentang visualisasi <span>ⓘ</span></button></div>
   <div class="orbit-panel" id="orbit-panel" hidden><p>Seret untuk memutar · Scroll untuk zoom</p><div><button id="zoom-out" aria-label="Perkecil">−</button><button id="zoom-in" aria-label="Perbesar">+</button><button id="reset-orbit" aria-label="Atur ulang kamera">⟲</button><button id="rotate-orbit" aria-label="Rotasi otomatis" aria-pressed="false">↻</button><button id="night-orbit" aria-pressed="false">Malam</button><button id="plan-view">Denah ↑</button><button id="exit-orbit">Lanjutkan perjalanan <span>↓</span></button></div></div>
-  <div class="loader" id="loader" role="status"><span class="loader-kicker">UNISMUH / CAMPUS JOURNEY</span><img class="loader-logo" src="./images/logo-unismuh.png" width="116" height="116" alt="Logo Unismuh Makassar"/><p id="load-text">Membangun perspektif…</p><div class="loader-track"><i id="load-fill"></i></div><span class="load-percent" id="load-percent">0%</span></div>
+  <div class="loader" id="loader" role="status"><span class="loader-kicker">UNISMUH / CAMPUS JOURNEY</span><img class="loader-logo" src="./images/logo-unismuh.png" width="116" height="116" alt="Logo Unismuh Makassar"/><p id="load-text">Memuat denah kampus…</p><div class="loader-track"><i id="load-fill"></i></div><span class="load-percent" id="load-percent">0%</span></div>
  </div>
 </main>
 <dialog id="models-dialog"><div class="dialog-top"><p class="eyebrow">KOLEKSI MODEL 3D</p><button class="close-dialog" aria-label="Tutup">×</button></div><h2>Satu kampus.<br> <em>Seluruh bagian.</em></h2><p>Setiap model tersedia sebagai GLB terpisah, dengan titik pusat masing-masing. Pilih bagian yang ingin Anda unduh.</p><div class="asset-list" id="asset-list"><p>Menyiapkan berkas…</p></div><small>Posisi dan kode A–T mengikuti denah yang Anda berikan. Bentuk fasad dan tinggi merupakan interpretasi dari referensi foto.</small></dialog>

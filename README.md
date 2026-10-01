@@ -60,3 +60,10 @@ Tampilan awal dan tur menggunakan pencahayaan malam dengan jendela bercahaya. Da
 Kompleks A/B/AB membentuk U yang tersambung: A dan B menjadi dua lengan sejajar, sementara AB menghubungkan ujung timurnya. Halaman tengah tetap terbuka. Ketiga bagian tetap tersedia sebagai GLB individu.
 
 Sambungan A/B/AB menggunakan bidang dinding tepat di X=-84,7 dan atap datar satu tingkat pada Y=13,95. List atap tidak melewati sambungan; fasad AB di sisi halaman hanya mengisi bagian yang terbuka.
+
+Opening: Welcome Unismuh → tangan 3D memegang logo Unismuh → tangan turun dan logo tetap melayang → pemuatan denah → tur kampus. Model public/intro/emblem-hand.glb memuat 36 joint, satu clip Present_Emblem, dan tekstur WebP yang tertanam. GSAP mengontrol AnimationMixer sesuai scroll, termasuk saat scroll kembali. Buat ulang lewat npm run intro:build. Tombol Langsung ke kampus melewati opening. Mode reduced motion menampilkan pose tetap dan transisi fade. Renderer opening berhenti ketika di luar viewport atau tab tidak terlihat.
+
+Referensi model/tekstur/gerakan tangan: https://cork-webgl-study.vercel.app/ (halaman mengkreditkan Lusion / ORYZO). Aset BUF referensi tersimpan di scripts/reference-hand; scripts/convert-reference-hand.mjs mengonversinya ke GLB standar. Kredit sumber dicatat di public/intro/CREDITS.md; pencatatan kredit bukan pernyataan lisensi dari pemilik aset.
+
+
+Opening memakai gradasi biru muda lembut dan material/tekstur kulit asli dari referensi. Warna tur denah malam tetap sama. Logo yang dipegang adalah GLB public/intro/logo-unismuh-3d.glb: siluet asli diekstrusi, tepi emas, ketebalan 0.092 unit, serta tekstur logo tertanam. Buat ulang lewat npm run logo:build; npm run intro:build membangun kedua model opening.
