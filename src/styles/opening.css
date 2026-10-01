@@ -8,8 +8,8 @@
 @media(max-width:760px){.opening-canvas{mask-image:linear-gradient(to bottom,#000 0%,#000 58%,transparent 72%)}}
 
 /* Soft sky-blue opening palette, scoped to the opening section. */
-.opening{background:#c4d9f0;color:#233d6b}
-.opening-stage{background:radial-gradient(ellipse at 55% 38%,#d6e8f7 0%,#c4dbf1 43%,#adc8e9 100%)}
+.opening{background:#acd0ee;color:#233d6b}
+.opening-stage{background:radial-gradient(ellipse at 55% 38%,#b9d9f1 0%,#acd0ee 50%,#a4c8e9 100%)}
 .opening-stage:before{border-color:#345a8723}
 .opening-brand{color:#233d6b}.opening-brand small{color:#4d6481}
 .opening-header button{color:#2e4d75;border-color:#385f8c38;background:#dceaf744}
