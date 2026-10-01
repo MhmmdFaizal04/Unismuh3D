@@ -17,3 +17,5 @@
 .opening-subtitle{color:#4b6381}.opening-hand-caption p,.opening-next p{color:#263f72}
 .opening-hand-caption small{color:#4b6381}.opening-next small{color:#274898}
 .opening-scroll{color:#4b6381}.opening-scroll b{color:#274898}
+
+.opening-stage::before{content:none}

@@ -67,3 +67,6 @@ Referensi model/tekstur/gerakan tangan: https://cork-webgl-study.vercel.app/ (ha
 
 
 Opening memakai gradasi biru muda lembut dan material/tekstur kulit asli dari referensi. Warna tur denah malam tetap sama. Logo yang dipegang adalah GLB public/intro/logo-unismuh-3d.glb: siluet asli diekstrusi, tepi emas, ketebalan 0.092 unit, serta tekstur logo tertanam. Buat ulang lewat npm run logo:build; npm run intro:build membangun kedua model opening.
+
+
+Opening tidak memakai garis lingkaran. Gerakkan kursor ke atas/bawah area jari saat tangan sudah memegang logo: empat rantai jari bergerak secara terpisah memakai hierarchy referensi yang tertanam dalam GLB. Sendi telapak dan pegangan logo tetap stabil; gerakan kembali halus saat kursor menjauh. Interaksi tidak menangkap gesture scroll ponsel dan dinonaktifkan pada reduced motion. Validasi: node scripts/validate-opening-interaction.mjs.

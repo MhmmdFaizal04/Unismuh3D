@@ -12,7 +12,7 @@ async function unpack(name){
  }return {meta,attrs};
 }
 globalThis.FileReader=class{readAsArrayBuffer(blob){blob.arrayBuffer().then(result=>{this.result=result;this.onloadend?.();});}};
-const {attrs:g}=await unpack('hand.buf'),{attrs:a}=await unpack('hand_animation.buf'),{attrs:c}=await unpack('coaster_hero_animation.buf');
+const {attrs:g}=await unpack('hand.buf'),{attrs:a,meta:animationMeta}=await unpack('hand_animation.buf'),{attrs:c}=await unpack('coaster_hero_animation.buf');
 const root=new THREE.Group();root.name='Unismuh_Emblem_Hand';
 const center=new THREE.Vector3(-.0105758577,.548192548,-.0485146008);
 const facing=new THREE.Quaternion(0,-Math.SQRT1_2,-Math.SQRT1_2,0).invert();
@@ -33,7 +33,7 @@ const anchor=new THREE.Object3D();anchor.name='Emblem_Anchor';root.add(anchor);c
 for(let f=0;f<46;f++){v.fromArray(c.position,(f+70)*3).sub(center).applyQuaternion(facing).multiplyScalar(10);logoPos.push(...v);}
 anchor.position.fromArray(logoPos);tracks.push(new THREE.VectorKeyframeTrack('Emblem_Anchor.position',times,logoPos));
 const clip=new THREE.AnimationClip('Present_Emblem',45/30,tracks);clip.optimize();
-root.userData={reference:'https://cork-webgl-study.vercel.app/',originalCredit:'Lusion / ORYZO study reference',conversion:'Packed BUF to glTF joints, local embedded texture',vertices:8441};
+root.userData={reference:'https://cork-webgl-study.vercel.app/',originalCredit:'Lusion / ORYZO study reference',conversion:'Packed BUF to glTF joints, local embedded texture',vertices:8441,fingerRig:animationMeta.sceneData.filter(j=>j.name)};
 root.updateMatrixWorld(true);
 const exported=Buffer.from(await new GLTFExporter().parseAsync(root,{binary:true,animations:[clip],onlyVisible:false}));
 // Embed the baked texture without a DOM/canvas dependency in the build script.

@@ -1,6 +1,7 @@
 import * as THREE from 'three';
 import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';
 import gsap from 'gsap';
+import {createFingerInteraction} from './finger-interaction.js';
 import {ScrollTrigger} from 'gsap/ScrollTrigger';
 gsap.registerPlugin(ScrollTrigger);
 
@@ -8,7 +9,7 @@ export function createOpening({onEnterCampus,signal}){
  const section=document.querySelector('#opening'),canvas=document.querySelector('#opening-canvas');
  const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
  const state={reveal:0,pose:0,release:0};
- let started=false,disposed=false,renderer,scene,camera,model,hand,anchor,emblem,mixer,clip,frame,active=true,dirty=true,lastPose='';
+ let started=false,disposed=false,renderer,scene,camera,model,hand,anchor,emblem,mixer,clip,frame,active=true,dirty=true,lastPose='',fingers,lastFrame=0;
  const enter=()=>{if(!started&&!signal.aborted){started=true;onEnterCampus();}};
  const disposeObject=object=>object?.traverse(o=>{o.geometry?.dispose();for(const material of [].concat(o.material||[])){material.map?.dispose();material.dispose();}});
  const ctx=gsap.context(()=>{
@@ -34,9 +35,11 @@ export function createOpening({onEnterCampus,signal}){
  const visibility=new IntersectionObserver(entries=>{active=entries[0].isIntersecting;if(active){dirty=true;loop();}else cancelAnimationFrame(frame);});visibility.observe(section);
  function loop(){
   cancelAnimationFrame(frame);if(disposed||!active||document.hidden||!renderer||!model)return;
-  const pose=reduced?1:state.pose,key=[state.reveal,pose,state.release].join(':');
+  const now=performance.now(),delta=Math.min(.05,(now-lastFrame)/1000||.016);lastFrame=now;
+  const pose=reduced?1:state.pose;fingers?.update(delta,!reduced&&pose>.88&&state.release<.2&&state.reveal>.8);
+  const key=[state.reveal,pose,state.release,fingers?.poseKey()].join(':');
   if(dirty||key!==lastPose){
-   lastPose=key;mixer.setTime(Math.min(clip.duration-.00001,pose*clip.duration));
+   lastPose=key;fingers?.reset();mixer.setTime(Math.min(clip.duration-.00001,pose*clip.duration));fingers?.capture();fingers?.apply(THREE.MathUtils.smoothstep(pose,.88,1)*(1-THREE.MathUtils.smoothstep(state.release,0,.35)));
    // The emblem stays suspended as the hand lowers out of view.
    model.position.y=reduced?0:-state.release*2.6;
    const anchorPosition=anchor.getWorldPosition(new THREE.Vector3());emblem.position.copy(anchorPosition);emblem.position.y+=reduced?0:state.release*2.6;
@@ -46,19 +49,27 @@ export function createOpening({onEnterCampus,signal}){
   }
   frame=requestAnimationFrame(loop);
  }
+ const pointerMove=event=>{
+  if(!fingers||reduced||event.pointerType==='touch')return;
+  if(event.target.closest('button,a')){fingers.leave();return;}
+  const rect=canvas.getBoundingClientRect();fingers.move((event.clientX-rect.left)/rect.width*2-1,1-(event.clientY-rect.top)/rect.height*2);
+ };
+ section.addEventListener('pointermove',pointerMove,{passive:true,signal});
+ section.addEventListener('pointerleave',()=>fingers?.leave(),{signal});
+ window.addEventListener('blur',()=>fingers?.leave(),{signal});
  const resume=()=>{if(!document.hidden)loop();else cancelAnimationFrame(frame);};document.addEventListener('visibilitychange',resume,{signal});
  async function load(){try{
   renderer=new THREE.WebGLRenderer({canvas,alpha:true,antialias:true,powerPreference:'low-power'});renderer.outputColorSpace=THREE.SRGBColorSpace;renderer.toneMapping=THREE.NoToneMapping;
   scene=new THREE.Scene();camera=new THREE.PerspectiveCamera(26,1,.01,100);
   scene.add(new THREE.HemisphereLight(0xffffff,0xc1b8a3,2));const keyLight=new THREE.DirectionalLight(0xfff4df,3);keyLight.position.set(-3,4,5);scene.add(keyLight);const rimLight=new THREE.DirectionalLight(0xd5ecff,2);rimLight.position.set(3,1,2);scene.add(rimLight);
-  const [gltf,logo]=await Promise.all([new GLTFLoader().loadAsync(`${import.meta.env.BASE_URL}intro/emblem-hand.glb?v=1`),new GLTFLoader().loadAsync(`${import.meta.env.BASE_URL}intro/logo-unismuh-3d.glb?v=1`)]);
+  const [gltf,logo]=await Promise.all([new GLTFLoader().loadAsync(`${import.meta.env.BASE_URL}intro/emblem-hand.glb?v=2`),new GLTFLoader().loadAsync(`${import.meta.env.BASE_URL}intro/logo-unismuh-3d.glb?v=1`)]);
   if(disposed){disposeObject(gltf.scene);disposeObject(logo.scene);return;}
   model=gltf.scene;hand=model.getObjectByName('Hand');anchor=model.getObjectByName('Emblem_Anchor');clip=gltf.animations[0];if(!hand||!anchor||!clip)throw new Error('Emblem hand animation missing');
   scene.add(model);mixer=new THREE.AnimationMixer(model);mixer.clipAction(clip).setLoop(THREE.LoopOnce,1).play();
   // An exposure lift preserves the reference texture, hue, and baked shading.
   hand.material.onBeforeCompile=shader=>{shader.fragmentShader=shader.fragmentShader.replace('#include <map_fragment>','#include <map_fragment>\n diffuseColor.rgb *= 3.2;');};
   hand.material.customProgramCacheKey=()=> 'opening-skin-exposure-3.2';hand.material.needsUpdate=true;
-  emblem=logo.scene;scene.add(emblem);resize();loop();
+  fingers=createFingerInteraction(model,hand);emblem=logo.scene;scene.add(emblem);resize();loop();
  }catch(error){console.warn('[Opening]',error);disposeObject(scene);renderer?.dispose();renderer=undefined;canvas.hidden=true;section.classList.add('opening-fallback');}}
  load();
  document.querySelector('#opening-skip').addEventListener('click',()=>{enter();document.querySelector('#journey').scrollIntoView({behavior:reduced?'instant':'smooth'});},{signal});
