@@ -1,322 +1,778 @@
 {
-  "version": 4,
-  "description": "Photo-inspired architecture with approximate dimensions; extended campus layout follows user directions. Fountain is an artistic addition.",
+  "version": 7,
+  "description": "Layout traced from user-provided A–T campus plan. Approximate architectural heights and facades from aerial reference.",
   "layout": {
-    "frontAxis": "+Z",
-    "leftAxis": "-X",
-    "frontSequence": [
-      "Air_Mancur",
-      "Jalan_Depan",
-      "FKIP",
-      "Perpustakaan"
-    ],
-    "libraryNeighbors": [
-      "Perpustakaan",
-      "Masjid"
-    ],
-    "towerSideRow": [
-      "Menara_Iqro",
-      "Fakultas_Hukum",
-      "Pascasarjana"
-    ],
-    "entrances": {
-      "Fakultas_Hukum": {
-        "center": [
-          -76,
-          0,
-          -8
-        ],
-        "frontDepth": 12,
-        "direction": [
-          0.8574929257125442,
-          0,
-          0.5144957554275265
-        ],
-        "faces": "Air_Mancur"
-      },
-      "Pascasarjana": {
-        "center": [
-          -96.75132880224356,
-          0,
-          28.529198635354383
-        ],
-        "frontDepth": 11,
-        "direction": [
-          0.8574929257125442,
-          0,
-          0.5144957554275265
-        ]
-      }
-    },
-    "road": {
-      "centerZ": 45,
-      "width": 10
+    "source": "photo_6194783613841248516_w.jpg",
+    "northAxis": "-Z",
+    "eastAxis": "+X",
+    "trees": false,
+    "planScale": 0.32,
+    "spacing": 1.4545454545,
+    "connectedTower": true,
+    "arrivalCircle": false,
+    "codes": {
+      "A": "SMA_Unismuh",
+      "B": "Pascasarjana",
+      "AB": "Lab_Komputer_FKIP",
+      "D": "UMC",
+      "F": "Kedokteran",
+      "G": "Lab_Teknik",
+      "H": "Lab_IPA_FKIP",
+      "I": "FKIP",
+      "J": "Farmasi",
+      "M": "Mahad_M",
+      "M1": "Mahad_M1",
+      "M2": "Mahad_M2",
+      "M3": "Mahad_M3",
+      "M4": "Mahad_M4",
+      "M5": "Mahad_M5",
+      "M6": "Mahad_M6",
+      "M7": "Mahad_M7",
+      "O": "Asrama_Putri",
+      "P": "Asrama_Putra",
+      "Q": "PKM",
+      "R": "Pusat_IKA",
+      "S": "Rumah_Imam",
+      "T": "Tempat_Wudhu",
+      "C": "Masjid",
+      "E": "Perpustakaan",
+      "K": "Menara_Iqro",
+      "K1": "Menara_Iqro",
+      "N": "Balai_Sidang"
     }
   },
   "assets": [
     {
-      "id": "Menara_Iqro",
-      "label": "Menara Iqro",
-      "file": "menara-iqro.glb",
-      "hash": "eceff07c93c9",
-      "position": [
-        -15,
-        0,
-        -2.9749999046325684
-      ],
-      "bounds": {
-        "min": [
-          -26.5,
-          0,
-          -17.5
-        ],
-        "max": [
-          -3.5,
-          85.80000305175781,
-          11.550000190734863
-        ]
-      },
-      "bytes": 390140,
-      "meshes": 7,
-      "triangles": 5536
-    },
-    {
-      "id": "Sayap_Akademik",
-      "label": "Sayap akademik",
-      "file": "sayap-akademik.glb",
-      "hash": "2694e3f80acf",
-      "position": [
-        -15,
-        0,
-        -8.850000001490116
-      ],
-      "bounds": {
-        "min": [
-          -52,
-          0,
-          -17.5
-        ],
-        "max": [
-          22,
-          34.43000030517578,
-          -0.20000000298023224
-        ]
-      },
-      "bytes": 682508,
-      "meshes": 4,
-      "triangles": 11376
-    },
-    {
       "id": "Balai_Sidang",
-      "label": "Balai Sidang",
+      "label": "N · Balai Sidang Muktamar 47",
       "file": "balai-sidang.glb",
-      "hash": "245d569eff20",
+      "hash": "0ea3eecbe754",
       "position": [
-        43,
+        -25.800000548362732,
         0,
-        -13
+        108.20000076293945
       ],
       "bounds": {
         "min": [
-          22,
+          -55.54851150512695,
           0,
-          -32
+          66.18584442138672
         ],
         "max": [
-          64,
+          3.9485104084014893,
           33.400001525878906,
-          6
+          150.2141571044922
         ]
       },
-      "bytes": 216824,
+      "bytes": 217620,
       "meshes": 7,
       "triangles": 4552
     },
     {
-      "id": "FKIP",
-      "label": "FKIP",
-      "file": "fkip.glb",
-      "hash": "a123625cff0c",
-      "position": [
-        -21,
-        0,
-        67
-      ],
-      "bounds": {
-        "min": [
-          -38.5,
-          0,
-          53.5
-        ],
-        "max": [
-          -3.5,
-          18.700000762939453,
-          80.5
-        ]
-      },
-      "bytes": 40684,
-      "meshes": 4,
-      "triangles": 424
-    },
-    {
-      "id": "Perpustakaan",
-      "label": "Perpustakaan",
-      "file": "perpustakaan.glb",
-      "hash": "45fa0b025473",
-      "position": [
-        -21,
-        0,
-        103.5999984741211
-      ],
-      "bounds": {
-        "min": [
-          -38,
-          0,
-          91
-        ],
-        "max": [
-          -4,
-          14.75,
-          116.19999694824219
-        ]
-      },
-      "bytes": 177792,
-      "meshes": 4,
-      "triangles": 2064
-    },
-    {
-      "id": "Fakultas_Hukum",
-      "label": "Fakultas Hukum",
-      "file": "fakultas-hukum.glb",
-      "hash": "dd59d122d3cb",
-      "position": [
-        -76,
-        0,
-        -8
-      ],
-      "bounds": {
-        "min": [
-          -96.75132751464844,
-          -1.9073486612342094e-7,
-          -29.78032112121582
-        ],
-        "max": [
-          -55.24867248535156,
-          18.149999618530273,
-          13.78032112121582
-        ]
-      },
-      "bytes": 193188,
-      "meshes": 4,
-      "triangles": 2324
-    },
-    {
-      "id": "Pascasarjana",
-      "label": "Pascasarjana",
-      "file": "pascasarjana.glb",
-      "hash": "874deb14abfb",
-      "position": [
-        -96.75132751464844,
-        0,
-        28.529197216033936
-      ],
-      "bounds": {
-        "min": [
-          -116.6451644897461,
-          -1.9073486612342094e-7,
-          7.263373374938965
-        ],
-        "max": [
-          -76.85749053955078,
-          18.149999618530273,
-          49.795021057128906
-        ]
-      },
-      "bytes": 220960,
-      "meshes": 4,
-      "triangles": 2596
-    },
-    {
       "id": "Masjid",
-      "label": "Masjid kampus",
+      "label": "C · Masjid Subulussalam Al-Khoory",
       "file": "masjid.glb",
-      "hash": "329bd87a1801",
+      "hash": "70149742587d",
       "position": [
-        -64.0999984741211,
+        -161.6320037841797,
         0,
-        103
+        -16.600000143051147
       ],
       "bounds": {
         "min": [
-          -82.69999694824219,
+          -175.0240020751953,
           0,
-          87.5
+          -27.760000228881836
         ],
         "max": [
-          -45.5,
+          -148.24000549316406,
           22.850000381469727,
-          118.5
+          -5.440000057220459
         ]
       },
-      "bytes": 196420,
+      "bytes": 196536,
       "meshes": 6,
       "triangles": 3996
     },
     {
-      "id": "Gerbang",
-      "label": "Gerbang kampus",
-      "file": "gerbang.glb",
-      "hash": "a932666ed106",
+      "id": "Menara_Iqro",
+      "label": "K / K1 · Menara Iqro dan dua sayap belakang",
+      "file": "menara-iqro.glb",
+      "hash": "dcf6deccb932",
       "position": [
-        -47,
+        36.220001220703125,
         0,
-        21
+        30.760001063346863
       ],
       "bounds": {
         "min": [
-          -53.5,
+          15.770000457763672,
           0,
-          14.5
+          -3.740000009536743
         ],
         "max": [
-          -40.5,
-          15.600000381469727,
-          27.5
+          56.67000198364258,
+          85.80000305175781,
+          65.26000213623047
         ]
       },
-      "bytes": 30656,
-      "meshes": 3,
-      "triangles": 484
+      "bytes": 1069604,
+      "meshes": 7,
+      "triangles": 16936
+    },
+    {
+      "id": "SMA_Unismuh",
+      "label": "A · Gedung SMA Unismuh",
+      "file": "sma-unismuh.glb",
+      "hash": "f1c6eb390fd0",
+      "position": [
+        -105.80000305175781,
+        0,
+        -35.19999980926514
+      ],
+      "bounds": {
+        "min": [
+          -120.80000305175781,
+          0,
+          -42.29999923706055
+        ],
+        "max": [
+          -90.80000305175781,
+          14.75,
+          -28.100000381469727
+        ]
+      },
+      "bytes": 92044,
+      "meshes": 4,
+      "triangles": 1224
+    },
+    {
+      "id": "Pascasarjana",
+      "label": "B · Gedung Pascasarjana",
+      "file": "pascasarjana.glb",
+      "hash": "f8a6620425c0",
+      "position": [
+        -99.4000015258789,
+        0,
+        -8.639999866485596
+      ],
+      "bounds": {
+        "min": [
+          -114.4000015258789,
+          -1.9073486612342094e-7,
+          -15.739999771118164
+        ],
+        "max": [
+          -84.4000015258789,
+          18.149999618530273,
+          -1.5399999618530273
+        ]
+      },
+      "bytes": 180604,
+      "meshes": 4,
+      "triangles": 2204
+    },
+    {
+      "id": "Lab_Komputer_FKIP",
+      "label": "AB · Laboratorium Komputer FKIP",
+      "file": "lab-komputer-fkip.glb",
+      "hash": "e51b36cda5d6",
+      "position": [
+        -80.19999694824219,
+        0,
+        -22.080000162124634
+      ],
+      "bounds": {
+        "min": [
+          -86.69999694824219,
+          0,
+          -38.18000030517578
+        ],
+        "max": [
+          -73.69999694824219,
+          14.75,
+          -5.980000019073486
+        ]
+      },
+      "bytes": 109252,
+      "meshes": 4,
+      "triangles": 1392
+    },
+    {
+      "id": "UMC",
+      "label": "D · Gedung UMC Unismuh Makassar",
+      "file": "umc.glb",
+      "hash": "2b97ddeacd12",
+      "position": [
+        -115.02999877929688,
+        0,
+        -66.23999786376953
+      ],
+      "bounds": {
+        "min": [
+          -126.27999877929688,
+          0,
+          -79.33999633789062
+        ],
+        "max": [
+          -103.77999877929688,
+          14.75,
+          -53.13999938964844
+        ]
+      },
+      "bytes": 99708,
+      "meshes": 6,
+      "triangles": 1284
+    },
+    {
+      "id": "Kedokteran",
+      "label": "F · Fakultas Kedokteran",
+      "file": "kedokteran.glb",
+      "hash": "18b0fe5a45ad",
+      "position": [
+        -73.80000114440918,
+        0,
+        62.39999961853027
+      ],
+      "bounds": {
+        "min": [
+          -85.80000305175781,
+          0,
+          35.29999923706055
+        ],
+        "max": [
+          -61.79999923706055,
+          21.549999237060547,
+          89.5
+        ]
+      },
+      "bytes": 141784,
+      "meshes": 4,
+      "triangles": 1936
+    },
+    {
+      "id": "Lab_Teknik",
+      "label": "G · Laboratorium Fakultas Teknik",
+      "file": "lab-teknik.glb",
+      "hash": "c030102b0815",
+      "position": [
+        -169.16000366210938,
+        0,
+        104.75579452514648
+      ],
+      "bounds": {
+        "min": [
+          -178.05567932128906,
+          -9.536743306171047e-8,
+          92.57829284667969
+        ],
+        "max": [
+          -160.2643280029297,
+          11.350000381469727,
+          116.93329620361328
+        ]
+      },
+      "bytes": 78300,
+      "meshes": 4,
+      "triangles": 972
+    },
+    {
+      "id": "Lab_IPA_FKIP",
+      "label": "H · Laboratorium IPA FKIP",
+      "file": "lab-ipa-fkip.glb",
+      "hash": "b5a85348b58e",
+      "position": [
+        -85.95999908447266,
+        0,
+        -54.36000061035156
+      ],
+      "bounds": {
+        "min": [
+          -98.5221176147461,
+          -9.536743306171047e-8,
+          -63.01512908935547
+        ],
+        "max": [
+          -73.39788055419922,
+          11.350000381469727,
+          -45.704872131347656
+        ]
+      },
+      "bytes": 67276,
+      "meshes": 4,
+      "triangles": 864
+    },
+    {
+      "id": "FKIP",
+      "label": "I · Gedung Kantor FKIP",
+      "file": "fkip.glb",
+      "hash": "04e2764a83ed",
+      "position": [
+        -37.959999561309814,
+        0,
+        -41.24000263214111
+      ],
+      "bounds": {
+        "min": [
+          -60.422115325927734,
+          -1.9073486612342094e-7,
+          -52.37186050415039
+        ],
+        "max": [
+          -15.497883796691895,
+          18.149999618530273,
+          -30.108144760131836
+        ]
+      },
+      "bytes": 133576,
+      "meshes": 4,
+      "triangles": 1740
+    },
+    {
+      "id": "Farmasi",
+      "label": "J · Perkuliahan Jurusan Farmasi",
+      "file": "farmasi.glb",
+      "hash": "194e04bda044",
+      "position": [
+        23.800000578165054,
+        0,
+        -18.200000286102295
+      ],
+      "bounds": {
+        "min": [
+          -0.9486743807792664,
+          -1.9073486612342094e-7,
+          -31.76529312133789
+        ],
+        "max": [
+          48.548675537109375,
+          18.149999618530273,
+          -4.634707450866699
+        ]
+      },
+      "bytes": 120136,
+      "meshes": 4,
+      "triangles": 1608
+    },
+    {
+      "id": "Mahad_M",
+      "label": "M · Kompleks Mahad Al-Birr M",
+      "file": "mahad-m.glb",
+      "hash": "f92bb7e1a8ca",
+      "position": [
+        -149.32000732421875,
+        0,
+        112.3599967956543
+      ],
+      "bounds": {
+        "min": [
+          -161.957275390625,
+          -9.536743306171047e-8,
+          101.88725280761719
+        ],
+        "max": [
+          -136.6827392578125,
+          11.350000381469727,
+          122.8327407836914
+        ]
+      },
+      "bytes": 67652,
+      "meshes": 4,
+      "triangles": 868
+    },
+    {
+      "id": "Mahad_M1",
+      "label": "M1 · Kompleks Mahad Al-Birr M1",
+      "file": "mahad-m1.glb",
+      "hash": "afec175cf33e",
+      "position": [
+        -120.5199966430664,
+        0,
+        126.65024185180664
+      ],
+      "bounds": {
+        "min": [
+          -131.6112518310547,
+          0,
+          111.38045501708984
+        ],
+        "max": [
+          -109.42874145507812,
+          14.75,
+          141.92002868652344
+        ]
+      },
+      "bytes": 96500,
+      "meshes": 4,
+      "triangles": 1264
+    },
+    {
+      "id": "Mahad_M2",
+      "label": "M2 · Kompleks Mahad Al-Birr M2",
+      "file": "mahad-m2.glb",
+      "hash": "72d0bb73000e",
+      "position": [
+        -156.0399932861328,
+        0,
+        151.4197006225586
+      ],
+      "bounds": {
+        "min": [
+          -164.58250427246094,
+          -4.7683716530855236e-8,
+          143.70957946777344
+        ],
+        "max": [
+          -147.4974822998047,
+          7.949999809265137,
+          159.12982177734375
+        ]
+      },
+      "bytes": 55088,
+      "meshes": 4,
+      "triangles": 632
+    },
+    {
+      "id": "Mahad_M3",
+      "label": "M3 · Kompleks Mahad Al-Birr M3",
+      "file": "mahad-m3.glb",
+      "hash": "2a98a4ad264c",
+      "position": [
+        -133.32000350952148,
+        0,
+        159.39998626708984
+      ],
+      "bounds": {
+        "min": [
+          -145.98146057128906,
+          -4.7683716530855236e-8,
+          150.25482177734375
+        ],
+        "max": [
+          -120.6585464477539,
+          7.949999809265137,
+          168.54515075683594
+        ]
+      },
+      "bytes": 62864,
+      "meshes": 4,
+      "triangles": 708
+    },
+    {
+      "id": "Mahad_M4",
+      "label": "M4 · Kompleks Mahad Al-Birr M4",
+      "file": "mahad-m4.glb",
+      "hash": "4d3d7e3a3361",
+      "position": [
+        -111.87999725341797,
+        0,
+        164.31903839111328
+      ],
+      "bounds": {
+        "min": [
+          -119.54177856445312,
+          -4.7683716530855236e-8,
+          156.2182159423828
+        ],
+        "max": [
+          -104.21821594238281,
+          7.949999809265137,
+          172.41986083984375
+        ]
+      },
+      "bytes": 48152,
+      "meshes": 4,
+      "triangles": 564
+    },
+    {
+      "id": "Mahad_M5",
+      "label": "M5 · Kompleks Mahad Al-Birr M5",
+      "file": "mahad-m5.glb",
+      "hash": "25774a0ea73c",
+      "position": [
+        -96.19999694824219,
+        0,
+        138.1083869934082
+      ],
+      "bounds": {
+        "min": [
+          -107.89940643310547,
+          0,
+          122.29228973388672
+        ],
+        "max": [
+          -84.5005874633789,
+          14.75,
+          153.9244842529297
+        ]
+      },
+      "bytes": 108372,
+      "meshes": 4,
+      "triangles": 1380
+    },
+    {
+      "id": "Mahad_M6",
+      "label": "M6 · Kompleks Mahad Al-Birr M6",
+      "file": "mahad-m6.glb",
+      "hash": "858394fc66e2",
+      "position": [
+        -75.39999961853027,
+        0,
+        160.0399932861328
+      ],
+      "bounds": {
+        "min": [
+          -88.75015258789062,
+          -9.536743306171047e-8,
+          149.8154296875
+        ],
+        "max": [
+          -62.04984664916992,
+          11.350000381469727,
+          170.26455688476562
+        ]
+      },
+      "bytes": 87696,
+      "meshes": 4,
+      "triangles": 1064
+    },
+    {
+      "id": "Mahad_M7",
+      "label": "M7 · Kompleks Mahad Al-Birr M7",
+      "file": "mahad-m7.glb",
+      "hash": "a5d5fcbe79be",
+      "position": [
+        -50.75999641418457,
+        0,
+        210.81024932861328
+      ],
+      "bounds": {
+        "min": [
+          -61.72754669189453,
+          0,
+          196.02491760253906
+        ],
+        "max": [
+          -39.79244613647461,
+          14.75,
+          225.5955810546875
+        ]
+      },
+      "bytes": 97724,
+      "meshes": 4,
+      "triangles": 1276
+    },
+    {
+      "id": "Asrama_Putri",
+      "label": "O · Asrama Mahasiswa Putri",
+      "file": "asrama-putri.glb",
+      "hash": "8aca9695ce0c",
+      "position": [
+        23.15999984741211,
+        0,
+        114.91999816894531
+      ],
+      "bounds": {
+        "min": [
+          4.018283843994141,
+          0,
+          87.84169006347656
+        ],
+        "max": [
+          42.30171585083008,
+          21.549999237060547,
+          141.99830627441406
+        ]
+      },
+      "bytes": 151460,
+      "meshes": 4,
+      "triangles": 2028
+    },
+    {
+      "id": "Asrama_Putra",
+      "label": "P · Asrama Mahasiswa Putra",
+      "file": "asrama-putra.glb",
+      "hash": "fd95daf02d66",
+      "position": [
+        -3.0799999237060547,
+        0,
+        185.63999938964844
+      ],
+      "bounds": {
+        "min": [
+          -22.211362838745117,
+          0,
+          160.3758087158203
+        ],
+        "max": [
+          16.051362991333008,
+          21.549999237060547,
+          210.90419006347656
+        ]
+      },
+      "bytes": 148184,
+      "meshes": 4,
+      "triangles": 1996
+    },
+    {
+      "id": "PKM",
+      "label": "Q · Pusat Kegiatan Mahasiswa",
+      "file": "pkm.glb",
+      "hash": "d0a6bcb12e37",
+      "position": [
+        -13.000000953674316,
+        0,
+        229.8000030517578
+      ],
+      "bounds": {
+        "min": [
+          -34.23377990722656,
+          0,
+          217.5850830078125
+        ],
+        "max": [
+          8.23377799987793,
+          14.75,
+          242.01492309570312
+        ]
+      },
+      "bytes": 105896,
+      "meshes": 4,
+      "triangles": 1356
+    },
+    {
+      "id": "Pusat_IKA",
+      "label": "R · Kantor Pusat IKA Unismuh",
+      "file": "pusat-ika.glb",
+      "hash": "d0c9c8ba94ab",
+      "position": [
+        -141.32000732421875,
+        0,
+        -52.15999984741211
+      ],
+      "bounds": {
+        "min": [
+          -147.82000732421875,
+          -9.536743306171047e-8,
+          -59.7599983215332
+        ],
+        "max": [
+          -134.82000732421875,
+          11.350000381469727,
+          -44.560001373291016
+        ]
+      },
+      "bytes": 77096,
+      "meshes": 4,
+      "triangles": 964
+    },
+    {
+      "id": "Rumah_Imam",
+      "label": "S · Rumah Imam Masjid Subulussalam Al-Khoory",
+      "file": "rumah-imam.glb",
+      "hash": "d758f89537d4",
+      "position": [
+        -145.16000366210938,
+        0,
+        -38.39999961853027
+      ],
+      "bounds": {
+        "min": [
+          -152.16000366210938,
+          -4.7683716530855236e-8,
+          -44.5
+        ],
+        "max": [
+          -138.16000366210938,
+          7.949999809265137,
+          -32.29999923706055
+        ]
+      },
+      "bytes": 55552,
+      "meshes": 4,
+      "triangles": 640
+    },
+    {
+      "id": "Tempat_Wudhu",
+      "label": "T · Tempat Wudhu Pria dan Wanita",
+      "file": "tempat-wudhu.glb",
+      "hash": "a5a78cb8f686",
+      "position": [
+        -185.15999603271484,
+        0,
+        -27.513160705566406
+      ],
+      "bounds": {
+        "min": [
+          -193.0623321533203,
+          -4.7683716530855236e-8,
+          -35.50325393676758
+        ],
+        "max": [
+          -177.25765991210938,
+          7.949999809265137,
+          -19.523067474365234
+        ]
+      },
+      "bytes": 40404,
+      "meshes": 4,
+      "triangles": 488
+    },
+    {
+      "id": "Perpustakaan",
+      "label": "E · UPT Perpustakaan / IT / BKD / KOMDIS-ETIK",
+      "file": "perpustakaan.glb",
+      "hash": "420befc021c7",
+      "position": [
+        -157.63999938964844,
+        0,
+        31.399999618530273
+      ],
+      "bounds": {
+        "min": [
+          -172.33999633789062,
+          0,
+          16.700000762939453
+        ],
+        "max": [
+          -142.94000244140625,
+          17,
+          46.099998474121094
+        ]
+      },
+      "bytes": 107548,
+      "meshes": 4,
+      "triangles": 1040
     },
     {
       "id": "Lansekap",
-      "label": "Lansekap kampus",
+      "label": "Jalan dan tapak kampus tanpa pepohonan",
       "file": "lansekap.glb",
-      "hash": "b8245958c6c3",
+      "hash": "221c88a3ebb8",
       "position": [
-        -54,
+        -64.26792526245117,
         0,
-        40
+        61.98286056518555
       ],
       "bounds": {
         "min": [
-          -177,
-          -2.6000001430511475,
-          -48
+          -232.6216583251953,
+          0.10000000149011612,
+          -121.83428192138672
         ],
         "max": [
-          69,
-          10.149999618530273,
-          128
+          104.08580780029297,
+          1.6473000049591064,
+          245.8000030517578
         ]
       },
-      "bytes": 385888,
-      "meshes": 10,
-      "triangles": 7276
+      "bytes": 198788,
+      "meshes": 5,
+      "triangles": 1963
     },
     {
       "id": "Air_Mancur",
-      "label": "Air mancur",
+      "label": "Taman dan air mancur",
       "file": "air-mancur.glb",
       "hash": "34b955962b09",
       "position": [
