@@ -88,4 +88,9 @@ console.log(`Validated ${manifest.assets.length} independent GLB 2.0 files and c
 assert.equal(manifest.layout.codes.K1,'Menara_Iqro');
 assert(manifest.layout.connectedTower);
 assert(!byId.Perkuliahan_Bersama,'Rear wings use the same GLB as the tower');
-assert(byId.SMA_Unismuh.bounds.max[0]<byId.Lab_Komputer_FKIP.bounds.min[0],'A and AB have visible breathing room');
+for(const id of ['SMA_Unismuh','Pascasarjana']){
+ const arm=byId[id].bounds,link=byId.Lab_Komputer_FKIP.bounds;
+ assert(arm.max[0]>link.min[0]&&arm.min[0]<link.max[0],'AB connects to '+id+' along X');
+ assert(arm.max[2]>link.min[2]&&arm.min[2]<link.max[2],'AB connects to '+id+' along Z');
+}
+assert(byId.SMA_Unismuh.bounds.max[2]<byId.Pascasarjana.bounds.min[2],'A/B retain an open courtyard');

@@ -56,3 +56,7 @@ Vercel: framework Vite, build `npm run build`, output `dist`. Upload/push secara
 Jarak pusat bangunan diperlebar sekitar 45% tanpa membesarkan gedung. Kompleks Menara Iqro tetap rapat: menara dan dua sayap belakang tersambung dengan podium bersama dalam satu GLB `menara-iqro.glb`. Jalan, tapak, dan kamera mengikuti susunan yang diperlebar.
 
 Tampilan awal dan tur menggunakan pencahayaan malam dengan jendela bercahaya. Dalam eksplorasi bebas, tombol Siang/Malam mengubah pencahayaan. Bundaran di depan Farmasi dihapus; taman air mancur tetap ada.
+
+Kompleks A/B/AB membentuk U yang tersambung: A dan B menjadi dua lengan sejajar, sementara AB menghubungkan ujung timurnya. Halaman tengah tetap terbuka. Ketiga bagian tetap tersedia sebagai GLB individu.
+
+Sambungan A/B/AB menggunakan bidang dinding tepat di X=-84,7 dan atap datar satu tingkat pada Y=13,95. List atap tidak melewati sambungan; fasad AB di sisi halaman hanya mengisi bagian yang terbuka.

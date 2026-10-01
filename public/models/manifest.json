@@ -1,5 +1,5 @@
 {
-  "version": 7,
+  "version": 9,
   "description": "Layout traced from user-provided A–T campus plan. Approximate architectural heights and facades from aerial reference.",
   "layout": {
     "source": "photo_6194783613841248516_w.jpg",
@@ -9,6 +9,9 @@
     "planScale": 0.32,
     "spacing": 1.4545454545,
     "connectedTower": true,
+    "connectedAB": true,
+    "abJoinPlaneX": -84.7,
+    "abRoofHeight": 13.95,
     "arrivalCircle": false,
     "codes": {
       "A": "SMA_Unismuh",
@@ -124,79 +127,79 @@
       "id": "SMA_Unismuh",
       "label": "A · Gedung SMA Unismuh",
       "file": "sma-unismuh.glb",
-      "hash": "f1c6eb390fd0",
+      "hash": "902f09831a34",
       "position": [
-        -105.80000305175781,
+        -102.69999694824219,
         0,
-        -35.19999980926514
+        -34.90999984741211
       ],
       "bounds": {
         "min": [
-          -120.80000305175781,
-          0,
-          -42.29999923706055
+          -120.69999694824219,
+          -1.9073486612342094e-7,
+          -40.52000045776367
         ],
         "max": [
-          -90.80000305175781,
-          14.75,
-          -28.100000381469727
+          -84.69999694824219,
+          14.274999618530273,
+          -29.299999237060547
         ]
       },
-      "bytes": 92044,
-      "meshes": 4,
-      "triangles": 1224
+      "bytes": 168792,
+      "meshes": 5,
+      "triangles": 1956
     },
     {
       "id": "Pascasarjana",
       "label": "B · Gedung Pascasarjana",
       "file": "pascasarjana.glb",
-      "hash": "f8a6620425c0",
+      "hash": "e4484d58215d",
       "position": [
-        -99.4000015258789,
+        -102.69999694824219,
         0,
-        -8.639999866485596
+        -8.350000023841858
       ],
       "bounds": {
         "min": [
-          -114.4000015258789,
+          -120.69999694824219,
           -1.9073486612342094e-7,
-          -15.739999771118164
+          -13.960000038146973
         ],
         "max": [
-          -84.4000015258789,
-          18.149999618530273,
-          -1.5399999618530273
+          -84.69999694824219,
+          14.274999618530273,
+          -2.740000009536743
         ]
       },
-      "bytes": 180604,
-      "meshes": 4,
-      "triangles": 2204
+      "bytes": 211636,
+      "meshes": 5,
+      "triangles": 2376
     },
     {
       "id": "Lab_Komputer_FKIP",
       "label": "AB · Laboratorium Komputer FKIP",
       "file": "lab-komputer-fkip.glb",
-      "hash": "e51b36cda5d6",
+      "hash": "c8a32851d4cd",
       "position": [
-        -80.19999694824219,
+        -80.20000076293945,
         0,
-        -22.080000162124634
+        -22.519999265670776
       ],
       "bounds": {
         "min": [
-          -86.69999694824219,
-          0,
-          -38.18000030517578
+          -84.91999816894531,
+          -1.9073486612342094e-7,
+          -40.29999923706055
         ],
         "max": [
-          -73.69999694824219,
-          14.75,
-          -5.980000019073486
+          -75.4800033569336,
+          14.274999618530273,
+          -4.739999294281006
         ]
       },
-      "bytes": 109252,
+      "bytes": 174504,
       "meshes": 4,
-      "triangles": 1392
+      "triangles": 1936
     },
     {
       "id": "UMC",

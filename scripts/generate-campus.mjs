@@ -433,10 +433,50 @@ root.remove(root.children.find(g=>g.name==='Gerbang'));
 
 for(const [code,id,label,px,py,width,depth,floors,rotation] of PLAN_BUILDINGS){
 
- const [x,z]=planPoint(px,py);academicBuilding(id,code+' '+(id==='FKIP'?'FKIP':id==='Pascasarjana'?'PASCA':''),x,z,{width,depth,floors,rotation});
+ let [x,z]=planPoint(px,py),buildingWidth=width,buildingDepth=depth;
+ if(['SMA_Unismuh','Pascasarjana','Lab_Komputer_FKIP'].includes(id)){
+  joinedAcademic(id,code);continue;
+ }
+ academicBuilding(id,code+' '+(id==='FKIP'?'FKIP':''),x,z,{width:buildingWidth,depth:buildingDepth,floors,rotation});
 
  if(id==='UMC')academicExtension(x,z);
 
+}
+
+// Continuous U footprint: shared wall planes and one roof level, no intersecting eaves.
+function joinedAcademic(id,code){
+ const link=id==='Lab_Komputer_FKIP';
+ const x=link?-80.2:-102.7,z=link?-22.52:id==='SMA_Unismuh'?-35.8:-9.24;
+ const w=link?9:36,d=link?35.56:9,h=13.6;
+ begin(id);box('ivory',w,h,d,x,h/2,z);box('trim',w,.4,d,x,.3,z);
+ box('blue',w,.35,d,x,h+.175,z);
+ if(!link){
+  for(let floor=0;floor<4;floor++)for(const side of [-1,1]){
+   const y=2+floor*3.4;
+   for(let col=0;col<10;col++)box('glass',2.2,2.1,.12,x-16+col*32/9,y,z+side*(d/2+.065));
+   box('trim',w,.2,.2,x,y-1.2,z+side*(d/2+.12));
+  }
+  for(const side of [-1,1])box('trim',w,.45,.3,x,h+.45,z+side*(d/2-.15));
+  box('trim',.3,.45,d,x-w/2+.15,h+.45,z);
+  text(code==='B'?'B PASCASARJANA':'A SMA UNISMUH',.65,x,h-1,z+d/2+.18,'blue');
+  box('darkglass',5,3,.12,x,1.8,z+d/2+.07);
+  box('trim',7,.3,2,x,3.7,z+d/2+1);
+ }else{
+  for(let floor=0;floor<4;floor++){
+   const y=2+floor*3.4;
+   for(let col=0;col<10;col++)box('glass',.12,2.1,2.1,x+w/2+.065,y,z-15+col*30/9);
+   // Only the courtyard portion of the west facade is exposed.
+   for(let col=0;col<5;col++)box('glass',.12,2.1,2.1,x-w/2-.065,y,z-6+col*3);
+   box('trim',.2,.2,d,x+w/2+.12,y-1.2,z);
+   box('trim',.2,.2,17.56,x-w/2-.12,y-1.2,z);
+  }
+  box('trim',.3,.45,d,x+w/2-.15,h+.45,z);
+  box('trim',.3,.45,17.56,x-w/2+.15,h+.45,z);
+  const label=new TextGeometry('AB LAB KOMPUTER',{font,size:.55,depth:.04,curveSegments:2,bevelEnabled:false});
+  label.computeBoundingBox();label.translate(-label.boundingBox.max.x/2,0,0);label.rotateY(-Math.PI/2);label.translate(x-w/2-.18,h-1,z);
+  if(!label.index)label.setIndex([...Array(label.attributes.position.count).keys()]);put('blue',label);
+ }
+ finish();
 }
 
 function academicExtension(x,z){
@@ -549,7 +589,7 @@ const fixedNames={Menara_Iqro:['menara-iqro','K / K1 · Menara Iqro dan dua saya
 
 const names={...fixedNames,...Object.fromEntries(PLAN_BUILDINGS.map(([code,id,label])=>[id,[id.toLowerCase().replaceAll('_','-'),code+' · '+label]]))};
 
-const manifest={version:7,description:'Layout traced from user-provided A–T campus plan. Approximate architectural heights and facades from aerial reference.',layout:{source:'photo_6194783613841248516_w.jpg',northAxis:'-Z',eastAxis:'+X',trees:false,planScale:PLAN_SCALE,spacing:1.4545454545,connectedTower:true,arrivalCircle:false,codes:{...Object.fromEntries(PLAN_BUILDINGS.map(([code,id])=>[code,id])),C:'Masjid',E:'Perpustakaan',K:'Menara_Iqro',K1:'Menara_Iqro',N:'Balai_Sidang'}},assets:[]};
+const manifest={version:9,description:'Layout traced from user-provided A–T campus plan. Approximate architectural heights and facades from aerial reference.',layout:{source:'photo_6194783613841248516_w.jpg',northAxis:'-Z',eastAxis:'+X',trees:false,planScale:PLAN_SCALE,spacing:1.4545454545,connectedTower:true,connectedAB:true,abJoinPlaneX:-84.7,abRoofHeight:13.95,arrivalCircle:false,codes:{...Object.fromEntries(PLAN_BUILDINGS.map(([code,id])=>[code,id])),C:'Masjid',E:'Perpustakaan',K:'Menara_Iqro',K1:'Menara_Iqro',N:'Balai_Sidang'}},assets:[]};
 
 for(const part of root.children){
 
